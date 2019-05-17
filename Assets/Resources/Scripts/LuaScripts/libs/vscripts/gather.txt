@@ -1,0 +1,50 @@
+local Gather = {}
+
+function Gather.MainThink(event)
+    local caster = event.caster
+    local target = event.target
+    local ability = event.ability
+    local onInterval = event.onInterval
+    local modifier = event.modifier;
+
+    DoAttackNearestStone(event)
+
+
+end
+
+function DoAttackNearestStone(event)
+    local caster = event.caster
+    local ability = event.ability
+    local target = event.target
+
+    if (caster.IsMoving == true) then
+       -- print("Still moving")
+        return;
+    end
+
+    local radius = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "find_radius")
+    radius = tonumber(radius)
+
+    --Attack nearest target
+    --[[
+    local tUnits = ChunkFinder.FindInRadius(caster.CurrentPos, radius)
+
+    local nearest = ChunkFinder.FindNearestGroup(caster.CurrentPos, tUnits, "neutral")
+    Attack(nearest)
+    --]]
+
+
+    --Attack nearest flag
+    local flagPoses = FlagManager.GetFlagPoses();
+    for _, pos in pairs(flagPoses) do
+        local dist = AI_Calculation.GetDistTo(caster.CurrentPos, pos, false)
+        if (pos ~= nil and pos.x >= 0 and dist <= radius) then
+            local succ = SimpleOrderManager.AttackToIndex(caster, pos)
+            if (succ) then
+                return;
+            end
+        end
+    end
+end
+
+return Gather;

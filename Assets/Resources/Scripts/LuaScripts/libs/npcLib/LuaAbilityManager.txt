@@ -1,0 +1,71 @@
+if (LuaAbilityManager == nil) then
+    LuaAbilityManager = {}
+    LuaAbilityManager.abilities = {}
+end
+
+
+function LuaAbilityManager:Init()
+    LuaAbilityManager.abilities = LuaNpcManager.npc.npc_abilities;
+    LuaNpcManager.npc.npc_abilities = nil;
+end
+
+function LuaAbilityManager.GetAbilityByName(name)
+    for k, v in pairs(LuaAbilityManager.abilities) do
+        if (tostring(k) == tostring(name)) then
+            v.name = k
+            return v
+        end
+    end
+    return {}
+end
+
+
+
+
+
+function LuaAbilityManager.GetGoldCost(ability)
+    if (ability == nil) then
+        return 0;
+    end
+    local cost = ability.GetAbilitySpecial("gold_cost", "number")
+    if (cost ~= nil) then
+        cost = tonumber(cost)
+    end
+    if (cost == nil) then
+        cost = 0;
+    end
+    return cost;
+end
+
+function LuaAbilityManager.GetFoodCost(ability)
+    if (ability == nil) then
+        return 0;
+    end
+    local cost = ability.GetAbilitySpecial("food_cost", "number")
+    if (cost ~= nil) then
+        cost = tonumber(cost)
+    end
+    if (cost == nil) then
+        cost = 0;
+    end
+    return cost;
+end
+
+function LuaAbilityManager.GetAbilityEventsList(ab_t, eventNames)
+    local events = {}
+    for k, v in pairs(ab_t) do
+        for _, vv in pairs(eventNames) do
+            if (k == vv) then
+                events[k] = v
+            end
+        end
+    end
+
+    return events
+end
+
+
+
+
+
+

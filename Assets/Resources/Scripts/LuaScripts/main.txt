@@ -1,0 +1,133 @@
+local succesfullPreload
+
+local folder_name = ""
+local fullPath = ""
+
+if (EvoEngine == nil) then
+    EvoEngine = {}
+    scripts = {}
+    KVlibs = nil
+    DBnpc_Sprite = nil
+    JScripts = {}
+
+end
+
+function EvoEngine:preLoad()
+
+    --Loading libraries
+    Uprint("Lua: Loading lua libraries")
+    KV = EvoEngine:loadLibrary("libs/dotakv/main")
+    Util = EvoEngine:loadLibrary("libs/Util")
+    EvoEngine:loadLibrary("libs/npcLib/LuaNpcManager")
+    EvoEngine:loadLibrary("libs/LuaQuestManager")
+    EvoEngine:loadLibrary("libs/LuaModifiersManager")
+    EvoEngine:loadLibrary("libs/LuaLangManager")
+    EvoEngine:loadLibrary("libs/npcLib/LuaAbilityManager")
+    EvoEngine:loadLibrary("libs/npcLib/LuaAbilityEvents")
+    EvoEngine:loadLibrary("libs/npcLib/LuaResearchManager")
+    EvoEngine:loadLibrary("libs/npcLib/LuaAbilityFunc")
+    
+    Uprint("Lua: UnityOs - " .. tostring(UnityOs))
+    if (succesfullPreload == false or UnityOs == nil) then
+        return error("Lua: Preload failed")
+    end
+
+    Uprint("Lua: libraries loaded")
+
+    --Loading DataBases
+    Uprint("Lua: Loading DataBases")
+    --DBnpc_Sprite = loadDataBase("lua/npc/npc_Sprite.txt")
+
+
+
+
+    --Loading KVs
+    KVlibs = loadDataBase(fullPath .. "KVs/KVloader")
+    Uprint("Lua: KVlibs loaded")
+
+    Uprint("Lua: Starting KV loading")
+    loadKVs()
+
+    --Print Info
+
+    Uprint("Lua: KV - " .. tostring(KV))
+    Uprint("Lua: Util - " .. tostring(Util))
+
+    EvoEngine:CallNpcLoader()
+    LuaNpcManager:Init()
+    LuaQuestManager:Init()
+    LuaModifiersManager:Init()
+    LuaLangManager:Init()
+    LuaAbilityManager:Init()
+    LuaResearchManager:Init()
+
+    Uprint("Lua: Preloading ended")
+
+end
+
+function Uprint(s)
+    if (UnityOs.IsDebug()) then
+        print(s)
+    end
+end
+
+function EvoEngine:CallNpcLoader()
+
+    local t = EvoEngine:loadKV(KVlibs["NpcLoader"].NpcLoader)
+    KVlibs["NpcLoader"].NpcLoader = t
+
+
+end
+
+function EvoEngine:Main()
+    EvoEngine:preLoad()
+end
+
+function printTableFromFile(str)
+    local table = loadFile(str)
+    if (table ~= nil) then
+        printTable(table)
+    else
+        print("Lua: File not opened - " .. str)
+    end
+end
+
+function EvoEngine:loadKV(KVtable)
+
+    local t = {}
+
+    for k, v in pairs(KVtable) do
+        Uprint("Lua: Loading KV file - " .. tostring(fullPath .. v))
+        local kvFile = loadDataBase(fullPath .. v)
+        if (kvFile ~= nil) then
+            t[k] = kvFile
+        else
+            error("Lua: KV file " .. tostring(k) .. " not loaded")
+        end
+    end
+    return t
+end
+
+function loadKVs()
+    if(type(KVlibs) ~="table") then
+        error("Lua: (main) Cant load KVs. KVlibs is broken")
+    end
+    KVlibs = EvoEngine:loadKV(KVlibs["KVloader"])
+end
+
+function EvoEngine:loadLibrary(name)
+    local Nname = folder_name .. name
+
+    local r, t = pcall(require, Nname)
+
+    if r then
+        --Uprint("Lua: Loaded library " .. name)
+        return t
+    else
+        print("Lua Loading: " .. tostring(Nname) .. " not found")
+        succesfullPreload = false
+        return -1
+    end
+end
+
+return EvoEngine

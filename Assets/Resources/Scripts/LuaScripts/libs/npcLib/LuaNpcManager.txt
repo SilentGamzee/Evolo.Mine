@@ -1,0 +1,233 @@
+if (LuaNpcManager == nil) then
+    LuaNpcManager = {}
+    LuaNpcManager.npc = {}
+    LuaNpcManager.ranges = {}
+
+end
+
+function LuaNpcManager:Init()
+    if (KVlibs["NpcLoader"] == nil or KVlibs["NpcLoader"].NpcLoader == nil) then
+        error("Lua: NpcLoader is broken")
+    end
+
+    for k, v in pairs(KVlibs["NpcLoader"].NpcLoader) do
+        LuaNpcManager.npc[k] = v[k]
+        -- LuaNpcManager.npc[k].name = k;
+    end
+
+    local start = 1
+    local i = 1
+
+    local kvs = { ["npc_units"] = LuaNpcManager.npc.npc_units,
+                  ["npc_items"] = LuaNpcManager.npc.npc_items,
+                  ["npc_buildings"] = LuaNpcManager.npc.npc_buildings }
+    for name, t in pairs(kvs) do
+        for k, v in pairs(t) do
+            if (k == "error") then
+                v.id = -3
+            else
+                v.id = i
+                i = i + 1
+            end
+        end
+        i = i-1 
+        LuaNpcManager.ranges[name] = { ["start"] = start, ["end"] = i }
+        i = i + 1
+        start = i
+        
+    end
+
+    KVlibs["NpcLoader"].NpcLoader = nil
+end
+
+local function TablesErrorCheck()
+    if (LuaNpcManager.npc.npc_units == nil) then
+        return true, error("Lua: `npc_units` is broken")
+    end
+
+    if (LuaNpcManager.npc.npc_items == nil) then
+        return true, error("Lua: `npc_items` is broken")
+    end
+
+    if (LuaNpcManager.npc.npc_buildings == nil) then
+        return true, error("Lua: `npc_buildings` is broken")
+    end
+    return false
+end
+
+local function GetTableNameByRangeId(id)
+    for k, v in pairs(LuaNpcManager.ranges) do
+        if ((id >= v["start"] ) and (id <= v["end"] )) then
+            return k
+        end
+    end
+    return ""
+end
+
+function LuaNpcManager.GetNpcById(id)
+    if (TablesErrorCheck()) then
+        return {}
+    end
+
+    local function FindById(t)
+        if(t==nil) then return {} end
+        for k, v in pairs(t) do
+            if (v ~= nil and type(v) == "table") then
+                if (tostring(v.id) == tostring(id)) then
+                    return v
+                end
+            end
+        end
+        return {}
+    end
+
+    local tName = GetTableNameByRangeId(id)
+    if (id == -1) then
+        tName = "npc_units"
+    end
+    local t = LuaNpcManager.npc[tName]
+    return FindById(t)
+end
+
+function LuaNpcManager.GetNpcNameById(id)
+    if (TablesErrorCheck()) then
+        return {}
+    end
+
+    local function FindName(t)
+        for k, v in pairs(t) do
+            if (v ~= nil and type(v) == "table") then
+                if (tostring(v.id) == tostring(id)) then
+                    return k
+                end
+            end
+        end
+        return ""
+    end
+
+    local tName = GetTableNameByRangeId(id)
+    if (id == -1) then
+        tName = "npc_units"
+    end
+    local t = LuaNpcManager.npc[tName]
+    return FindName(t)
+
+end
+
+function LuaNpcManager.GetNpcModelById(id)
+    if (TablesErrorCheck()) then
+        return {}
+    end
+
+    local function FindModel(t)
+        if (t == nil) then
+            error("Cant find npc table")
+            return ""
+        end
+        for k, v in pairs(t) do
+
+            if (v ~= nil and type(v) == "table") then
+                if (tostring(v.id) == tostring(id)) then
+                    return v.model
+                end
+            end
+        end
+        return ""
+    end
+
+    local tName = GetTableNameByRangeId(id)
+    if (id == -3) then
+        tName = "npc_units"
+    end
+    local tableT = LuaNpcManager.npc[tName]
+    return FindModel(tableT)
+
+end
+
+function LuaNpcManager.GetNpcByName(name)
+    if (TablesErrorCheck()) then
+        return {}
+    end
+
+    local function FindNpc(t)
+        for k, v in pairs(t) do
+            if (t == nil) then
+                error("CANT FIND NPC")
+                return
+            end
+            if (k == name) then
+                if (v ~= nil and type(v) == "table") then
+                    v.name = k
+                    -- print("Alright getting " .. k)
+                    return v;
+                end
+            end
+        end
+        return {}
+    end
+
+    local npcName = FindNpc(LuaNpcManager.npc.npc_units)
+
+    if (npcName.model ~= nil) then
+        return npcName
+    end
+    npcName = FindNpc(LuaNpcManager.npc.npc_items)
+    if (npcName.model ~= nil) then
+        return npcName
+    end
+    npcName = FindNpc(LuaNpcManager.npc.npc_buildings)
+    if (npcName.model ~= nil) then
+        return npcName
+    end
+
+    return {}
+end
+
+function LuaNpcManager.GetNpcGroupById(id)
+    if (TablesErrorCheck()) then
+        return {}
+    end
+
+    if ( id >= 500 and id < 1000) then
+        return "item"
+    elseif (id >= 1000) then
+        return "building"
+    else
+        for k, v in pairs(LuaNpcManager.npc.npc_units) do
+            if (v ~= nil and type(v) == "table") then
+                if (tostring(v.id) == tostring(id)) then
+                    if (v.group ~= nil) then
+                        return v.group
+                    end
+                end
+            end
+        end
+        return ""
+    end
+end
+
+function LuaNpcManager.GetNpcStatsById(id)
+    if (TablesErrorCheck()) then
+        return {}
+    end
+
+    for k, v in pairs(LuaNpcManager.npc.npc_units) do
+        if (v ~= nil and type(v) == "table") then
+            if (tostring(v.id) == tostring(id)) then
+                if (v.Stats ~= nil) then
+                    return v.Stats
+                end
+            end
+        end
+    end
+    return {}
+end
+
+function LuaNpcManager.GetItemsTable()
+    if (TablesErrorCheck()) then
+        return {}
+    end
+
+    return LuaNpcManager.npc.npc_items
+end
+

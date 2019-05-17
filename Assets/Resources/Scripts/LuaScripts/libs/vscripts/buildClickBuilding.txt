@@ -1,0 +1,67 @@
+
+
+local buildLogic = {}
+
+local magicBox = "building_magic_box"
+
+function buildLogic.MainThink(event)
+    local caster = event.caster
+    local ability = event.ability
+
+    if (caster == nil) then
+        return false;
+    end
+    local building = ability.GetAbilitySpecial("building", "string")
+
+    if (building == nil or building == "") then
+        return false;
+    end
+    caster.KillSelf()
+    SetupMagicBox(caster, ability)
+
+    local unit = Chunk.SetupUnit(building, caster.CurrentPos, caster.Owner)
+    local a = LuaAbilityManager.GetAbility("ability_remove_building")
+    unit.AddAbility(a)
+    unit.ChooseUnit()
+    return true;
+end
+
+function buildLogic.RemoveBuilding(event)
+    local caster = event.caster
+    if (caster == nil) then
+        return false;
+    end
+    caster.KillSelf()
+    local unit = Chunk.SetupUnit(magicBox, caster.CurrentPos, caster.Owner)
+    unit.ChooseUnit()
+    return true;
+end
+
+function SetupMagicBox(caster, ability)
+    local p = caster.CurrentPos
+    local v
+    if (IsGoodPos(p.x, p.y + 1, p.z)) then
+        v = LuaHelper.Vector3Int(p.x, p.y + 1, p.z)
+    elseif (IsGoodPos(p.x + 1, p.y, p.z)) then
+        v = LuaHelper.Vector3Int(p.x + 1, p.y, p.z)
+    elseif (IsGoodPos(p.x, p.y - 1, p.z)) then
+        v = LuaHelper.Vector3Int(p.x, p.y - 1, p.z)
+    elseif (IsGoodPos(p.x - 1, p.y, p.z)) then
+        v = LuaHelper.Vector3Int(p.x - 1, p.y, p.z)
+    else
+        local goldCost = LuaAbilityManager.GetGoldCost(ability);
+        caster.Owner.goldCount = caster.Owner.goldCount + goldCost
+        return true;
+    end
+
+    Chunk.SetupUnit(magicBox, v, caster.Owner)
+    return true;
+end
+
+function IsGoodPos(x, y, z)
+    local pos = LuaHelper.Vector3Int(x, y, z)
+    return Chunk.IsMapPos(pos)
+            and Chunk.IsEmptyPos(pos)
+end
+
+return buildLogic;

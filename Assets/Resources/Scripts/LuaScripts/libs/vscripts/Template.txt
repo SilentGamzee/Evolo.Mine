@@ -1,0 +1,18 @@
+local Template = {}
+
+function Template.MainThink(event)
+    local caster = event.caster
+    local ability = event.ability
+    local onInterval = event.onInterval
+    local modifier = event.modifier;
+
+    print("Template is vvorking")
+    if(caster~=nil)then
+        print(caster)
+    end
+    
+end
+
+
+
+return Template;

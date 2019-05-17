@@ -1,0 +1,46 @@
+if (LuaModifiersManager == nil) then
+    LuaModifiersManager = {}
+    LuaModifiersManager.modifiers = {}
+end
+
+local function PreInitTable(t)
+    return t["ModifiersKV"]
+end
+
+function LuaModifiersManager:Init()
+    if (KVlibs["ModifiersKV"] == nil ) then
+        error("Lua: LuaModifiersManager is broken")
+    end
+
+    local t = PreInitTable(KVlibs["ModifiersKV"])
+
+    for k, v in pairs(t) do
+        LuaModifiersManager.modifiers[k] = v
+        LuaModifiersManager.modifiers[k].name = k
+    end
+end
+
+function LuaModifiersManager.GetModifierByName(name)
+
+    for k, v in pairs(LuaModifiersManager.modifiers) do
+        if (k == name) then
+            return v
+        end
+    end
+end
+
+function LuaModifiersManager.OnIntervalThink(event)
+    LuaAbilityEvents.ParseEvents(event)
+end
+
+
+
+
+
+
+
+
+
+
+
+

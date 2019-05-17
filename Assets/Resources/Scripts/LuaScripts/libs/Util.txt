@@ -1,0 +1,127 @@
+--Loading DataBase
+function loadDataBase(path, goInside)
+    local DataBase = loadFile(path)
+    
+    --Change DataBase format to needed
+    if (type(DataBase) == 'string') then
+        DataBase = KV:Parse(DataBase)
+    end
+    
+    return DataBase
+end
+
+
+
+--Table to string KV
+function saveTable(t)
+    local s = "\n"
+    if (type(t) == "table") then
+        for k, v in pairs(t) do
+            s = s .. "\n" .. tostring(k)
+            if type(v) == "table" then
+                s = s .. "\n{"
+                s = s .. saveTable(v)
+                s = s .. "}\n"
+            else
+                s = s .. " " .. tostring(v)
+            end
+        end
+    else
+        print("Havent table")
+    end
+
+    return s .. "\n"
+end
+
+--Loading Files
+local KVLOAD = function(name)
+    local load = UnityOs.GetTextFromFile(name)
+
+    if load ~= nil then
+        return load, true
+    else
+        error("Lua: File " .. tostring(name) .. " not found.")
+    end
+end
+function loadFile(name)
+    local check, t = pcall(KVLOAD, name)
+
+    if check == true then
+        return t
+    else
+        error("KV Loading: " .. tostring(name) .. " not found")
+    end
+end
+
+--Print all from Table
+ printTable = function(t)
+     local s = ""
+    if (type(t) == "table") then
+        for k, v in pairs(t) do
+            s = s..tostring(k)
+            if type(v) == "table" then
+                s = s.."{"
+                printTable(v)
+                s = s.."}"
+            else
+                s = s..tostring(v)
+            end
+        end
+    else
+        addToLog("Lua: Havent table")
+    end
+     print(s)
+    return ''
+end
+
+function printMassTable(t)
+    if (type(t) == "table") then
+        for k, v in pairs(t) do
+            print(k, v)
+
+        end
+    else
+        addToLog("Lua: Havent table")
+    end
+    return ''
+end
+
+--from "folder/folder/FileName.txt" return "FileName"
+function getFileNameFromPath(str)
+    local s = str
+    local finding = string.find(s, "/")
+    while (finding ~= nil) do
+        s = string.sub(s, finding)
+        finding = string.find(s, "/")
+        if (finding ~= nil) then
+            finding = finding + 1
+        end
+    end
+    finding = string.find(s, '.', 1, true)
+
+    local ss = string.sub(s, finding)
+    s = string.gsub(s, ss, "")
+
+    return s
+end
+
+--Searcging key vvith name String
+function searchInTable(table, string)
+    local name = ''
+    if (type(table) == "table") then
+        for k, v in pairs(table) do
+            if k == string then
+                name = v
+                return name
+            end
+            if name == '' then
+                if type(v) == "table" then
+                    name = searchInTable(v, string)
+                end
+            end
+        end
+    else
+        addToLog("Lua: Havent table")
+    end
+    return name
+end

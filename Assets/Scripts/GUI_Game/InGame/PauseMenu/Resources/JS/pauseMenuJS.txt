@@ -1,0 +1,7 @@
+SetPauseMenuVisible = function(isVisible){
+	var pauseMenu = document.getElementById("PauseMenu");
+	if(isVisible)
+		pauseMenu.style.display = "block";
+	else
+		pauseMenu.style.display = "none";
+}

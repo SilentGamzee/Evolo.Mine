@@ -1,0 +1,8 @@
+"NpcLoader" 
+{ 
+		"npc_units"         "KVs/npc/npc_units"
+		"npc_buildings"     "KVs/npc/npc_buildings"
+		"npc_items"         "KVs/npc/npc_items"
+		"npc_abilities"		"KVs/npc/npc_abilities"
+		"npc_researches"	"KVs/npc/npc_researches"
+}

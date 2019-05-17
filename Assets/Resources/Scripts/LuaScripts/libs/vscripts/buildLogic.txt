@@ -1,0 +1,24 @@
+local buildLogic = {}
+
+function buildLogic.MainThink(event)
+    local caster = event.caster
+    local ability = event.ability
+
+    local building = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "building")
+    local build_time = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "build_time")
+    
+    if (building == nil) then
+        return ErrorBar.SetupError("Cant build nothing");
+    end
+    if (build_time == nil) then
+        return ErrorBar.SetupError("Build time is nothing");
+    end
+    
+    build_time = tonumber(build_time)
+
+    caster.EvolutionTime = build_time;
+    caster.EvolutionNext = building;
+
+end
+
+return buildLogic;

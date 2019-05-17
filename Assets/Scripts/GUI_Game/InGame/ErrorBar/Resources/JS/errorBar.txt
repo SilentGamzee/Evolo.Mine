@@ -1,0 +1,18 @@
+var errorBar = document.getElementById("Error_text");
+//var fading = false;
+var fading_time = 2.0;
+
+SetupErrorText = function(errorText){
+	errorBar.innerHTML = errorText + "";
+	errorFadeOut();
+}
+
+function errorFadeOut(){
+	//if(fading) return;
+	errorBar.style.display = "block";
+	fading = true;
+	errorBar.animate("display:none", fading_time).finished.then(function(){
+		fading = false;
+	});
+}
+

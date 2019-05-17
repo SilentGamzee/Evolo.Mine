@@ -1,0 +1,453 @@
+var fade_per_tick = 15; 
+var tick = 20;
+
+var hided = true;
+var debug = false;
+
+
+var AbilityBar_center = document.getElementById("AbilityBar_center");
+
+
+function debugPrint(str){
+    if(debug && str!==undefined)
+        console.log(str);
+}
+
+function ClearChildren(parentName){
+    var parent = document.getElementById(parentName);
+    var children = parent.children;
+    for(var i=0;i<children.length;i++){
+        children[i].remove();
+    }
+}
+
+IsAbilityBarHided = function(){
+    return hided;
+}
+
+//Hide
+AbilityBarHide = function() {
+    var fadeTarget = document.getElementById("AbilityBar");
+    if(fadeTarget===undefined || hided)return;
+    var n = 0;  //Start bottom value
+    var target = -70;   //End bottom value
+    hided = true;
+    fadeTarget.style.display="none";
+    /*
+    var fadeEffect = setInterval(function () {
+        n-=fade_per_tick;
+        if (n > target) {
+            fadeTarget.style.bottom = n+"px";
+        } else {
+            fadeTarget.style.display="none";
+            clearInterval(fadeEffect);
+        }
+    }, tick);
+    */
+};
+
+//Unhide
+AbilityBarUnHide = function() {
+    var fadeTarget = document.getElementById("AbilityBar");
+    var n = -70;  //Start bottom value
+    var target = 0;   //End bottom value
+    hided = false;
+
+    fadeTarget.style.display="block";
+    /*
+    var fadeEffect = setInterval(function () {
+        n+=fade_per_tick;
+        if(n > target){
+            n = target;
+        }
+        if (n < target) {
+            fadeTarget.style.bottom = n+"px";
+        } else {
+            clearInterval(fadeEffect);
+        }
+    }, tick);
+    */
+};
+
+ClearAbilities = function(){
+    ClearChildren("AbilityBar_center");
+}
+
+SetupAbility = function(ability){
+    if(ability == undefined) return;
+    
+    
+    function SetupSpell(){
+        var spellV = document.createElement("div");
+        if(spellV===undefined) return SetupSpell();
+        debugPrint("PreSetup spell"+spellV);
+        spellV.className = "Spell";
+        return spellV;
+    }
+
+
+    function SetupSpellImg(ab){
+        var v = document.createElement("div");
+        debugPrint("PreSetup spell img "+v);
+        v.className = "SpellImg";
+        v.style.background = "url(resources://"+ability.GetTexturePath()+")";
+        v.ability = ab;
+        return v;
+    }
+
+    function SetupCD(ab){
+        var cd_bg = document.createElement("div");    
+        var cd_text = document.createElement("div");
+        cd_bg.className = "SpellCD_BG";
+        cd_text.className = "SpellCD_Text";
+        cd_bg.appendChild(cd_text);
+        if(ab.CurrentCooldown==0){
+            cd_bg.style.display = "none";
+        }
+        return cd_bg;
+    }
+
+
+
+    debugPrint("Setuping spell");
+    var spell = SetupSpell();
+    debugPrint("Setuping spell img");
+    var spell_img = SetupSpellImg(ability);
+    debugPrint("Setuping spell CD");
+    var cdDiv = SetupCD(ability);
+    debugPrint("Setuping research check");
+    
+
+    if(spell===undefined){
+        spell = SetupSpell();
+        if(spell===undefined) return;
+    }
+
+    if(spell_img===undefined){
+        spell_img = SetupSpellImg();
+        if(spell_img===undefined) return;
+    }
+    debugPrint("Setuping to center bar");
+    spell_img.appendChild(cdDiv);
+    spell.appendChild(spell_img);
+    AbilityBar_center.appendChild(spell);
+
+    updateElementResearch(spell_img);
+
+    debugPrint("Adding listeners");
+    debugPrint("spell_img = "+spell_img);
+    spell_img.addEventListener("mouseover", OnMouseOver);
+    spell_img.addEventListener("mouseout", OnMouseOut);
+
+    if(IsActiveAbility(ability)){
+        spell_img.addEventListener("click", OnAbilityClick);
+    }else{
+        var grad = document.createElement("div");  
+        grad.className = "Spell_pass_rad_1";
+        spell_img.appendChild(grad);
+
+        var grad2 = document.createElement("div");  
+        grad2.className = "Spell_pass_rad_2";
+        grad.appendChild(grad2);
+    }
+}
+
+function OnMouseOver(e){
+    SetupTooltip(e);
+    var spell = e.currentTarget;
+
+    if(IsActiveAbility(spell.ability)){
+        spell.style.border="2px solid white";
+    }
+
+}
+
+function OnMouseOut(e){
+    HideTooltip(e);
+    var spell = e.currentTarget;
+
+    spell.style.border="none";
+}
+
+function SetupTooltip(e){
+    var spell = e.currentTarget;
+    
+    if(spell === undefined || spell.ability===undefined) return;
+    var spellTooltip = document.getElementById("SpellTooltip");
+    //Clear KVs, requirements
+    ClearChildren("SpellTooltip_vars");
+    ClearChildren("SpellTooltip_requirements_list");
+
+    //Ability info
+    var ability = spell.ability;
+    var textManager = importNamespace("GameUtils.ManagersAndSystems").LanguageTextManager;
+    
+    //Title
+    UI.Variables["AbilityTitle"] = textManager.GetTextByName(ability.abilityName);
+
+    //Lvl
+    UI.Variables["Ability_lvl"] = ability.GetCurrentLevel()+"";
+
+    //Special
+    UI.Variables["AbilitySpecial"] ="&AbilityBar.AbilityBehavior_"+ability.GetAbilityBehavior()+";";
+
+    //Requirements
+    var spellTooltip_requirements = document.getElementById("SpellTooltip_requirements");
+
+    var SpellTooltip_requirements_list = document.getElementById("SpellTooltip_requirements_list");
+
+    var req = ability.GetResearchRequirements();
+
+    var count = 0;
+    var player = ability.Owner;
+    for(var i=0; i < req.Count; i++){
+        var req_name = req[i];
+        if(!player.HasResearch(req_name))
+        {
+             var req_div = document.createElement("div");
+             req_div.innerHTML = textManager.GetTextByName(req_name);
+             SpellTooltip_requirements_list.appendChild(req_div);
+             count++;
+        }
+    }
+
+    if(count>0)
+        spellTooltip_requirements.style.display = "block";
+    else
+        spellTooltip_requirements.style.display = "none";
+
+    //Description
+    UI.Variables["AbilityDescription"] = textManager.GetTextByName(ability.abilityName+"_description");
+
+
+    //Ability variables
+    var kvList = ability.GetSpecialsList();
+    
+    for(var i=0;i<kvList.Count;i++){
+        var KV = kvList[i];  
+        var key = KV.Key;
+        var value = KV.Value;
+        if(isNaN(parseInt(value)) 
+            && value.indexOf("npc") === -1
+            && value.indexOf("building") === -1
+            && value.indexOf("ability") === -1){
+            value = ability.abilityName+"_"+KV.Value
+        }
+        SetupKeyValueTooltip(ability, key, value);
+    }
+
+    //Tooltip position
+    spellTooltip.style.display = "block";
+    var rectSpell = spell.getBoundingClientRect();
+    var offsetHeight = spellTooltip.offsetHeight;
+    spellTooltip.style.left = rectSpell.x+spell.offsetWidth + 5 + 'px'; //5 - additional space
+    spellTooltip.style.top = rectSpell.y-offsetHeight+(rectSpell.height/2)+'px';
+}
+
+function HideTooltip(){
+    var spellTooltip = document.getElementById("SpellTooltip");
+    spellTooltip.style.display = "none";
+    debugPrint("leave");
+}
+
+function SetupKeyValueTooltip(ability, key, value){
+    var spellTooltip_vars = document.getElementById("SpellTooltip_vars");
+    var textManager = importNamespace("GameUtils.ManagersAndSystems").LanguageTextManager;
+
+//Key
+    var keyText = textManager.GetTextByName(ability.abilityName+"_"+key);
+    if(keyText[0] == "#"){
+        keyText = textManager.GetTextByName(key);
+    }
+    if(keyText[0] == "#") return;
+    var keyDiv = document.createElement("div");
+    keyDiv.className = "Var_name";
+    
+    keyText = keyText.toUpperCase() + ":";
+    keyDiv.innerHTML = keyText;
+
+//Value
+    var valueDiv = document.createElement("div");
+    valueDiv.className = "Value_bar";
+
+    var curr_lvl = ability.GetCurrentLevel();
+    var max = ability.GetMaxLevel();
+    for(var i = 1; i <= max; i++){
+        var special_lvl = ability.GetAbilitySpecial(key, i, "string");
+        special_lvl = textManager.GetTextByName(special_lvl+"");
+        var special = document.createElement("div");
+        special.innerHTML = special_lvl;
+        
+        if(i==curr_lvl){
+            special.className = "Var_value_current";
+        }else{
+            special.className = "Var_value";
+        }
+        valueDiv.appendChild(special);
+        if(i<max)
+        {
+           valueDiv.innerHTML = valueDiv.innerHTML +"/";
+        }
+    }
+    keyDiv.appendChild(valueDiv);
+    
+    spellTooltip_vars.appendChild(keyDiv);
+    spellTooltip_vars.innerHTML+="<br>";
+}
+
+function IsActiveAbility(ability){
+    var beh = ability.GetAbilityBehavior()+"";
+
+    return beh!=="3";
+}
+
+function OnAbilityClick(e){
+    var spell = e.currentTarget;
+    if(spell === undefined || spell.ability===undefined) return;
+
+    if(spell.ability.CurrentCooldown>0){
+        var ErrorBar_HTML = importNamespace("GUI_Game.InGame.ErrorBar").ErrorBar_HTML;
+        ErrorBar_HTML.SetupError("Not yet!");
+        return; 
+    }
+    
+    if(spell.ability.IsAllRequirementsReady() === false){
+        var ErrorBar_HTML = importNamespace("GUI_Game.InGame.ErrorBar").ErrorBar_HTML;
+        ErrorBar_HTML.SetupError("Not all requirements ready!");
+        return; 
+    }
+    var simpleOrderManager = importNamespace("UnitsMechanic").SimpleOrderManager
+    var clickManager = importNamespace("GlobalMechanic.Interact").ClickManager;
+    var unit = clickManager.GetChoosedEnt();
+    simpleOrderManager.CastNonTargetAbility(unit, spell.ability);
+}
+
+
+function getElementByAbility(ab){
+    var children = AbilityBar_center.children;
+    for(var i=0;i<children.length;i++){
+        var child = children[i].children[0];
+        if(child.ability!==undefined && child.ability.abilityID == ab.abilityID)
+            return child;
+    }
+    return undefined;
+}
+
+function updateElementCD(el){
+    if(el===undefined || el.ability===undefined) return;
+    var cd_div = el.children[0];
+    if(cd_div===undefined) return;
+
+    var cd_time = el.ability.CurrentCooldown;
+    var cd_text = cd_div.children[0];
+    if(cd_text===undefined) return;
+    if(cd_time===0){
+        cd_div.style.display = "none";
+        cd_text.innerHTML = "";
+    }else if(cd_time>0){
+        cd_div.style.display = "block";
+        //var result = Math.round(cd_time*10)/10;
+        cd_text.innerHTML = (cd_time).toFixed(1)+"";
+    }
+}
+
+function updateElementResearch(el){
+    if(el===undefined || el.ability===undefined) return;
+    var cd_div = el.children[0];
+    if(cd_div===undefined) return;
+
+    var req = el.ability.GetResearchRequirements();
+    var player = el.ability.Owner;
+    for(var i=0;i<req.Count;i++){
+        var researchName = req[i];
+        EnableElement(el, player.HasResearch(researchName));    
+    }
+}
+
+function EnableElement(el, enable){
+    if(el===undefined || el.ability===undefined) return;
+    var cd_div = el.children[0];
+    if(cd_div===undefined) return;
+    if(enable){
+        cd_div.style.display = "none";
+    }else{
+        cd_div.style.display = "block";
+    }
+}
+
+
+
+//CD and Research descr
+UpdateAbilityBar = function(ability){
+    if(ability!==undefined){
+        var abilityBarChild = getElementByAbility(ability);
+        updateElementCD(abilityBarChild);
+        return;
+    }
+    var children = AbilityBar_center.children;
+    for(var i=0;i<children.length;i++){
+        var child = children[i].children[0];
+        updateElementResearch(child);
+    }
+}
+
+
+//HP_MP funcs
+function GetBar_count(hp_mp){
+    var t = hp_mp.innerHTML;
+    return t.slice(0, t.indexOf(" /"));
+}
+
+function GetBar_max(hp_mp){
+    var t = hp_mp.innerHTML;
+    return t.slice(t.indexOf("/ ")+1, t.length);
+}
+
+function UpdateBar_count(hp_mp, count){
+    var bar = document.getElementById(hp_mp+"_TEXT");
+    if (bar == null) return;
+    var max = GetBar_max(bar);
+    bar.innerHTML = count + " / " + max;
+
+    var fg = document.getElementById(hp_mp+"_FG");
+    var procent_hp = (parseInt(count) / parseInt(max)) * 100;
+    fg.style.width = procent_hp + "%";
+
+}
+
+function UpdateBar_max(hp_mp, count){
+    var bar = document.getElementById(hp_mp+"_TEXT");
+    if (bar == null) return;
+    var hp = GetBar_count(bar);
+    bar.innerHTML = hp + " / " + count;
+
+    var fg = document.getElementById(hp_mp+"_FG");
+    var procent_hp = (parseInt(hp) / parseInt(count)) * 100;
+    fg.style.width = procent_hp + "%";
+}   
+
+UpdateHP_count = function(hp){
+    UpdateBar_count("HP", hp);
+}
+
+UpdateHP_max = function(hp_max){
+    UpdateBar_max("HP", hp_max);
+}
+
+UpdateMP_count = function(hp){
+    UpdateBar_count("MP", hp);
+}
+
+UpdateMP_max = function(hp_max){
+    UpdateBar_max("MP", hp_max);
+}
+
+
+
+
+
+
+
+
+
+

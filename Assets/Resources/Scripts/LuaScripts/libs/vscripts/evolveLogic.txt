@@ -1,0 +1,61 @@
+local evolveLogic = {}
+
+function evolveLogic.MainThink(event)
+    local caster = event.caster
+    local ability = event.ability
+    --print("spell start!")
+    local evolveTarget = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "evolveTarget")
+    local build_time = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "build_time")
+    build_time = tonumber(build_time)
+
+
+    function getGoldCost()
+        local cost = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "gold_cost")
+        if (cost ~= nil) then
+            cost = tonumber(cost)
+        end
+        if (cost == nil) then
+            cost = 0;
+        end
+        return cost;
+    end
+
+    function getFoodCost()
+        local cost = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "food_cost")
+        if (cost ~= nil) then
+            cost = tonumber(cost)
+        end
+        if (cost == nil) then
+            cost = 0;
+        end
+        return cost;
+    end
+
+    local goldCost = getGoldCost();
+    local foodCost = getFoodCost();
+
+    if (caster.Owner.goldCount - goldCost < 0) then
+        ability.PostCurrent = 1;
+        return ErrorBar.SetupError("Not enough crystals!");
+    end
+    if (caster.Owner.foodCount + foodCost > caster.Owner.foodMax) then
+        ability.PostCurrent = 1;
+        return ErrorBar.SetupError("Not enough food!");
+    end
+
+    if(caster.EvolutionNext~="")then
+        ability.PostCurrent = 1;
+        return ErrorBar.SetupError("Already evolving!");
+    end
+    caster.Owner.goldCount = caster.Owner.goldCount - goldCost
+
+    caster.EvolutionTime = build_time;
+    caster.EvolutionNext = evolveTarget;
+
+
+
+end
+
+
+
+return evolveLogic;

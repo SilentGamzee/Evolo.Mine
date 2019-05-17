@@ -1,0 +1,35 @@
+if (LuaResearchManager == nil) then
+    LuaResearchManager = {}
+    LuaResearchManager.researches = {}
+end
+
+function LuaResearchManager:Init()
+    LuaResearchManager.researches = LuaNpcManager.npc.npc_researches;
+    LuaNpcManager.npc.npc_researches = nil;
+    for k, v in pairs(LuaResearchManager.researches) do
+        v.name = k
+    end
+end
+
+function LuaResearchManager.GetResearch(researchName)
+    for k, v in pairs(LuaResearchManager.researches) do
+        if (k == researchName) then
+            return v
+        end
+    end
+end
+
+function LuaResearchManager.OnResearch(event)
+    LuaAbilityEvents.ParseEvents(event)
+end
+
+function LuaResearchManager.OnUnitSpawned(event)
+    LuaAbilityEvents.ParseEvents(event)
+end
+
+function LuaResearchManager.OnResearchRemove(event)
+    LuaAbilityEvents.ParseEvents(event)
+end
+
+
+

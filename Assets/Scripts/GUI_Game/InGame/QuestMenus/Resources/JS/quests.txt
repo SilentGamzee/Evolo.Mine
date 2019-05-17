@@ -1,0 +1,65 @@
+
+jsTest = function(s,n){
+    return true;
+};
+
+
+DeleteQuest = function(n){
+	var els = document.getElementsByClassName("Quest");
+
+	for(var i = 0; i < els.length; i++){
+		var e = els[i];
+		var v = e.getAttribute("value");
+		if(parseInt(v)===n) 
+			e.remove();
+	}
+};
+
+SetupQuest = function(n){
+	var QuestMenus = importNamespace("GUI_Game.InGame.QuestMenus");
+    var questHtml = QuestMenus.Quest_HTML.GetQuestHTML(n);
+    var list = document.getElementById("QuestsList");
+    list.innerHTML+=questHtml;
+};
+
+
+var last = -1;
+ShowQuestWindow = function(n) {
+    var QuestMenus = importNamespace("GUI_Game.InGame.QuestMenus");
+    var quest = QuestMenus.Quest_HTML.GetQuestByNum(n);
+    last = n;
+    var url = "resources://Floating/windowQuests.html";
+    openURL(url, n, quest);
+}
+
+CompleteOpenedQuest = function(){
+	var QuestMenus = importNamespace("GUI_Game.InGame.QuestMenus");
+	var quest = QuestMenus.Quest_HTML.GetQuestByNum(last);
+	if(!quest.completed) return;
+
+	DeleteQuest(last);
+	CloseQuestWindow();
+
+	var Quests = importNamespace("GameUtils.ManagersAndSystems.Quests");
+	Quests.QuestManager.OnQuestCompleted(last);
+}
+
+CloseQuestWindow = function(){
+	if(!quest_window) return;
+	quest_window.close();
+    quest_window = null;
+}
+
+var quest_window;
+openURL = function(targetURL, n, quest) {
+    if (!quest_window) {
+        quest_window = document.widgets.open(
+            "QuestInfo", targetURL,
+            "questNum", n,
+            "quest", quest
+        );
+
+    } else {
+        CloseQuestWindow();
+    }
+}

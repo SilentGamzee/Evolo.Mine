@@ -1,0 +1,52 @@
+local Born = {}
+
+function Born.MainThink(event)
+    local caster = event.caster
+    local ability = event.ability
+    local onInterval = event.onInterval
+    local modifier = event.modifier;
+
+    local born_time = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "born_time")
+    local child_name = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "child_name")
+
+    if (IsNeedToBorn(caster, ability, child_name) ) then
+        ProgressUnitBar.Setup(caster, "CastAbility", tonumber(born_time))
+    else
+        ProgressUnitBar.RemoveProgressBar(caster, "CastAbility")
+    end
+
+    if (ProgressUnitBar.IsReady(caster)) then
+        ProgressUnitBar.RemoveProgressBar(caster, "CastAbility")
+        BornChild(caster, child_name)
+    end
+end
+
+function IsNeedToBorn(caster, ability, child_name )
+    local child_count = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "child_count")
+    child_count = tonumber(child_count)
+
+    local t = ChunkFinder.FindNpcByName(child_name, caster.Owner)
+
+    local n = length(t)
+    if(n>=child_count)then
+        return false
+    else
+        return true
+    end
+end
+
+function length(table)
+    local n = 0
+    for _,_ in pairs(table) do
+        n = n+1
+    end
+    return n
+end
+
+function BornChild(caster, child_name)
+    local freePos = AI_Calculation.FindFreePosNearPos(caster.CurrentPos, false)
+
+    Chunk.SetupUnit(child_name, freePos, caster.Owner)
+end
+
+return Born;

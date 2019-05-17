@@ -1,0 +1,44 @@
+"npc_researches"
+{
+    "research_template"
+    {
+        "OnResearch"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "libs/vscripts/research_template"
+                "Function"      "OnResearch"
+            }
+        }
+        
+        "OnUnitSpawned"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "libs/vscripts/research_template"
+                "Function"      "OnUnitSpawned"
+            }
+        }
+    }
+
+    "research_template2"
+    {
+        "OnResearch"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "libs/vscripts/research_template"
+                "Function"      "OnResearch"
+            }
+        }
+
+        "OnUnitSpawned"
+        {
+            "RunScript"
+            {
+                "ScriptFile"    "libs/vscripts/research_template"
+                "Function"      "OnUnitSpawned"
+            }
+        }
+    }
+}

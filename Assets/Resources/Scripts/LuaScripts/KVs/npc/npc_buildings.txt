@@ -1,0 +1,281 @@
+"npc_buildings" 
+{
+
+    "building_Ground_0"
+    {
+
+        "model"         "Tiles/Ground_0"
+        "group"         "ground"
+    }
+
+    "building_Ground_1"
+    {
+
+        "model"         "Tiles/Ground_1"
+        "group"         "ground"
+    }
+
+    "building_Ground_2"
+    {
+
+        "model"         "Tiles/Ground_2"
+        "group"         "ground"
+    }
+
+    "building_Ground_3"
+    {
+        "model"         "Tiles/Ground_3"
+        "group"         "ground"
+    }
+
+    "building_grass"
+    {
+        "model"         "Tiles/grass"
+        "group"         "ground"
+    }
+
+    "building_stone"
+    {
+        "model"         "Tiles/tile_stone"
+        "group"         "building"
+
+
+        "GoldMin"	    "5"
+        "GoldMax"		"10"
+
+        "Stats"
+        {
+            "hp"            "8"
+            "attack_dmg"    "0"
+            "movespeed"     "0"
+        }
+    }
+
+    "building_secret_box"
+    {
+        "model"         "Tiles/secret_box"
+        "group"         "building"
+
+
+        "Abilities"
+        {
+            "Ability1"      "ability_click_upgrade"
+            "Ability2"      "ability_mine_upgrade"
+        }
+
+        "Stats"
+        {
+            "hp"            "1"
+            "attack_dmg"    "0"
+            "movespeed"     "0"
+        }
+    }
+
+    "building_magic_box"
+    {
+        "model"         "Tiles/magic_block"
+        "group"         "building"
+
+        "foodGive"      "1"
+        
+        "Abilities"
+        {
+            "Ability1"      "ability_build_mine1"
+            "Ability2"      "ability_build_mine2"
+            "Ability3"      "ability_build_mine3"
+            "Ability4"      "ability_build_mine4"
+            "Ability5"      "ability_build_mine5"
+            "Ability6"      "ability_build_mine6"
+        }
+        
+        "Stats"
+        {
+            "hp"            "1"
+            "attack_dmg"    "0"
+            "movespeed"     "0"
+        }
+    }
+
+    "building_shovel"
+    {
+        "model"         "npc/buildings/shovel"
+        "group"         "building"
+        
+        "foodCost"      "1"
+        "foodGive"      "1"
+
+        "Abilities"
+        {
+            "Ability1"     "ability_click_1"
+            "Ability2"     "ability_gold_collecter_1"
+        }
+
+        "Stats"
+        {
+            "hp"            "150"
+            "attack_dmg"    "0"
+        }
+    }
+
+    "building_kolodec"
+    {
+        "model"         "npc/buildings/kolodec"
+        "group"         "building"
+
+        "foodCost"      "1"
+        "foodGive"      "1"
+
+        "Abilities"
+        {
+            "Ability1"     "ability_click_2"
+            "Ability2"     "ability_gold_collecter_2"
+        }
+
+        "Stats"
+        {
+            "hp"            "200"
+            "attack_dmg"    "0"
+        }
+    }
+
+    "building_house"
+    {
+        "model"         "npc/buildings/house"
+        "group"         "building"
+
+        "foodCost"      "1"
+        "foodGive"      "1"
+
+        "Abilities"
+        {
+            "Ability1"     "ability_click_3"
+            "Ability2"     "ability_gold_collecter_3"
+        }
+
+        "Stats"
+        {
+            "hp"            "500"
+            "attack_dmg"    "0"
+        }
+    }
+
+    "building_mine"
+    {
+        "model"         "npc/buildings/mine"
+        "group"         "building"
+
+        "foodCost"      "1"
+        "foodGive"      "1"
+
+        "Abilities"
+        {
+            "Ability1"     "ability_click_4"
+            "Ability2"     "ability_gold_collecter_4"
+        }
+
+        "Stats"
+        {
+            "hp"            "1000"
+            "attack_dmg"    "0"
+        }
+    }
+
+    "building_dragon"
+    {
+        "model"         "npc/buildings/dragon"
+        "group"         "building"
+
+        "foodCost"      "1"
+        "foodGive"      "1"
+
+        "Abilities"
+        {
+            "Ability1"     "ability_click_5"
+            "Ability2"     "ability_gold_collecter_5"
+        }
+
+        "Stats"
+        {
+            "hp"            "2000"
+            "attack_dmg"    "0"
+        }
+    }
+
+    "building_magic_crystall"
+    {
+        "model"         "npc/buildings/magic_crystall"
+        "group"         "building"
+
+        "foodCost"      "1"
+        "foodGive"      "1"
+
+        "Abilities"
+        {
+            "Ability1"     "ability_click_6"
+            "Ability2"     "ability_gold_collecter_6"
+        }
+
+        "Stats"
+        {
+            "hp"            "5000"
+            "attack_dmg"    "0"
+        }
+    }
+    
+    "building_spider_egg"
+    {
+        "model"         "npc/buildings/Spider-egg"
+        "group"         "building"
+        
+        "Stats"
+        {
+            "hp"            "5"
+            "attack_dmg"    "0"
+        }
+    }
+
+    "building_barracks"
+    {
+        "model"         "npc/buildings/barracks"
+        "group"         "building"
+        
+        "research"      "research_barracks"
+
+        "Stats"
+        {
+            "hp"            "15"
+            "attack_dmg"    "0"
+        }
+    }
+
+    
+  
+    
+    "building_farm_egg"
+    {
+        "model"         "npc/buildings/egg_food"
+        "group"         "building"
+
+        "foodGive"      "5"
+
+        "Stats"
+        {
+            "hp"            "8"
+            "attack_dmg"    "0"
+        }
+    }
+
+    "building_zigguratt"
+    {
+        "model"         "npc/buildings/zigguratt"
+        "group"         "building"
+
+        "research"      "research_zigguratt"
+        
+        "Stats"
+        {
+            "hp"            "12"
+            "attack_dmg"    "0"
+        }
+    }
+}

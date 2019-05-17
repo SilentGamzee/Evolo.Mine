@@ -1,0 +1,108 @@
+local Scout = {}
+local nearest
+
+function Scout.MainThink(event)
+    local caster = event.caster
+    local ability = event.ability
+    local onInterval = event.onInterval
+    local modifier = event.modifier;
+
+    if (modifier.vars.except == nil) then
+        modifier.vars.except = {}
+    end
+
+    if (modifier.vars.target == nil) then
+        modifier.vars.target = SetupTarget(event, modifier.vars.except)
+    end
+
+    local target = modifier.vars.target
+    if (target == nil) then
+        modifier.vars.except = {}
+        return
+    end
+    if (IsNearEnemy(caster, ability)) then
+        AttackNearEnemy(caster)
+    else
+        local isScoutComplete = Scouting(event, target)
+
+        if (isScoutComplete == true) then
+            table.insert(modifier.vars.except, target)
+            modifier.vars.target = nil
+        end
+    end
+end
+
+function IsNearEnemy(unit, ability)
+    local distance_to_enemy = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "scout_distance")
+    distance_to_enemy = tonumber(distance_to_enemy)
+    local enemyTable = ChunkFinder.FindEnemiesInRadius(unit, distance_to_enemy)
+    nearest = ChunkFinder.FindNearestReacheble(unit, enemyTable)
+    if (nearest ~= nil) then
+        return true
+    end
+    return false;
+end
+
+function AttackNearEnemy(caster)
+    if (caster == nil or nearest == nil) then
+        return
+    end
+    if (caster.IsMoving == false or AI_Calculation.IsAttackUnitInMemoryPos(caster, nearest) ~= true) then
+        print("Attack!")
+        SimpleOrderManager.AttackTarget(caster, nearest)
+    end
+end
+
+function SetupTarget(event, except)
+    local caster = event.caster
+    local ability = event.ability
+
+    local scout_target = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "scout_target")
+
+    local t = ChunkFinder.FindNpcByName(scout_target, caster.Owner)
+
+    for _, v in pairs(t) do
+        local b = false
+        for _, vv in pairs(except) do
+            if (tonumber(v.EntityIndex) == tonumber(vv.EntityIndex)) then
+                b = true
+            end
+        end
+        if (b == false) then
+            return v
+        end
+    end
+
+    return nil;
+end
+
+function Scouting(event, target)
+    local caster = event.caster
+    local ability = event.ability
+
+    local freePos = AI_Calculation.FindFreePosNearPos(target.CurrentPos, false)
+
+    local distToFreeFromTarget = AI_Calculation.GetDistTo(freePos, target.CurrentPos, false)
+
+    local scout_distance = LuaAbilityManager.GetSpecialValue(ability.AbilityTable, "scout_distance")
+
+    if (scout_distance == nil) then
+        return true
+    end
+    scout_distance = tonumber(scout_distance)
+
+    local distToTarget = AI_Calculation.GetDistTo(caster.CurrentPos, target.CurrentPos, false)
+
+    --print("Distance: " .. tostring(distToTarget) .. "  " .. tostring(scout_distance))
+    if (distToFreeFromTarget > scout_distance) then
+        return true
+    end
+
+    if (scout_distance < distToTarget) then
+        SimpleOrderManager.MoveToIndex(caster, freePos)
+    else
+        return true;
+    end
+end
+
+return Scout;

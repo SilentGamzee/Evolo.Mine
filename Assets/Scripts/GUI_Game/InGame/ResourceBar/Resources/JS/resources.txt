@@ -1,0 +1,23 @@
+
+function getFoodCount() {
+    var t = document.getElementById("food_text").innerHTML;
+    return t.slice(0, t.indexOf("/"));
+}
+
+function getFoodMax() {
+    var t = document.getElementById("food_text").innerHTML;
+    return t.slice(t.indexOf("/")+1, t.length);
+}
+
+setFoodCount = function(n) {
+    var max = getFoodMax();
+    document.getElementById("food_text").innerHTML = n+"/"+max;
+}
+setFoodMax = function(n){
+    var count = getFoodCount();
+    document.getElementById("food_text").innerHTML = count+"/"+n;
+}
+    
+setGoldCount = function(n){
+    document.getElementById("gold_text").innerHTML = n+"";
+}

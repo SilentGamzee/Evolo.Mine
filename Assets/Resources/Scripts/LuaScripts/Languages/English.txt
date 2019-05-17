@@ -1,0 +1,143 @@
+"English"
+{  
+        "gold_cost"                             "Crystals cost"
+        "food_cost"                             "Food cost"
+        "time"                                  "Time"
+        "build_time"                            "Build time"
+        "evolveTarget"                          "Evolve target"
+        "gold_tick"                             "Crystals per time"
+        "gold_click"                            "Click crystals"
+        
+        "upgrade_count"                         "Upgrade count"
+        
+        
+        "research_barracks"                     "Barracks"
+        "research_zigguratt"                    "Zigguratt"
+        
+        "npc_spider_queen"                      "Spider Queen"
+        "npc_spider_worker"                     "Spider worker"
+        "npc_spider-voin"                       "Spider warrior"
+        "npc_spider-child"                      "Spider larva"
+        "npc_spider-builder"                    "Spider builder"
+        "npc_frog_small"                        "Small frog"
+        "npc_frog_big"                          "Big frog"
+        "npc_hollow_small"                      "Small holow"
+        "npc_hollow_big"                        "Big holow"
+
+        "building_barracks"                     "Barracks"
+        "building_spider_egg"                   "Spider egg"
+        "building_farm_egg"                     "Farm egg"
+        "building_zigguratt"                    "Zigguratt"
+        "building_magic_box"                    "Magic box"
+        "building_secret_box"                   "Secret box"
+        
+        "building_shovel"                       "Showel"
+        "building_kolodec"                      "Crystall well"
+        "building_house"                        "Tavern"
+        "building_mine"                         "Mine"
+        "building_dragon"                       "Dragon"
+        "building_magic_crystall"               "Primeval crystal"
+
+        "npc_stone"                             "Stone"
+        
+
+        "ability_harvest"                               "Harvest"
+        "ability_harvest_description"                   "Unit attacks nearest flag position. Attack can't be canceled automatically."
+        "ability_harvest_find_radius"                   "Find Radius"
+        
+        "ability_scout"                                 "Scout"
+        "ability_scout_description"                     "Explores among all allied workers and attacks enemies, if they are nearby. Unit can't be controlled."
+        "ability_scout_scout_target"                    "Scout target"
+        "ability_scout_scout_distance"                  "Distance"
+        
+        "ability_childrenBorn"                          "Children Born"
+        "ability_childrenBorn_description"              "Summons allied larvae to increase the colony. Larvae are capable of evolving into workers, warriors, builders."
+        "ability_childrenBorn_born_time"                "Born time"
+        "ability_childrenBorn_child_count"              "Child count"
+        "ability_childrenBorn_child_name"               "Child name"
+        
+        "ability_build_barracks_egg"                    "Build barracks"
+        "ability_build_barracks_egg_description"        "Builds an egg of barracks on the nearest empty ground. Barracks allow to produce warriors."
+        
+        "ability_build_farm_egg"                        "Build farm egg"
+        "ability_build_farm_egg_description"            "Builds a egg, which increases the units limit."
+        
+        "ability_build_zigguratt"                       "Build zigguratt"
+        "ability_build_zigguratt_description"           "Builds a ziggutat, which allow to produce workers."
+        
+        "ability_build_worker"                          "Build worker"
+        "ability_build_worker_description"              "Basic worker unit. Can harvest stone and move to flags."
+        
+        "ability_build_voin"                            "Build warrior"
+        "ability_build_voin_description"                "Highly skilled spider. Auto-patrolling workers."
+        
+        "ability_build_builder"                         "Build builder"
+        "ability_build_builder_description"             "Basic builder unit. Can build some buildings."
+        
+        "ability_build_mine1"                           "Build showel"
+        "ability_build_mine1_description"               "Using a shovel, you get some crystals."
+        
+        "ability_build_mine2"                           "Build crystall well"
+        "ability_build_mine2_description"               "Well filled with crystal essence."
+        
+        "ability_build_mine3"                           "Build tavern"
+        "ability_build_mine3_description"               "A lot of hard workers do not mind getting some crystals and relaxing in the tavern, spending them."
+        
+        "ability_build_mine4"                           "Build mine"
+        "ability_build_mine4_description"               "Mine allows you to descend closer to a large cluster of crystals."
+        
+        "ability_build_mine5"                           "Find the dragon"
+        "ability_build_mine5_description"               "Steal a number of precious crystals from the dragon."
+        
+        "ability_build_mine6"                           "Build primeval crystal"
+        "ability_build_mine6_description"               "Build a primeval crystal to know everything."
+        
+        "ability_remove_building"                       "Remove building"
+        "ability_remove_building_description"           "Destroys a building and returns a certain amount of crystal-value resources."
+        
+        "ability_click_1"                               "Dig crystalls lvl 1"
+        "ability_click_1_description"                   "Produces a certain amount of crystals at each actuation."
+        
+        "ability_gold_collecter_1"                      "Gold collecter lvl 1"
+        "ability_gold_collecter_1_description"          "Automatically extracts a certain amount of crystals once in N time."
+
+        "ability_click_2"                               "Dig crystalls lvl 2"
+        "ability_click_2_description"                   "Produces a certain amount of crystals at each actuation."
+
+        "ability_gold_collecter_2"                      "Gold collecter lvl 2"
+        "ability_gold_collecter_2_description"          "Automatically extracts a certain amount of crystals once in N time."
+
+        "ability_click_3"                               "Dig crystalls lvl 3"
+        "ability_click_3_description"                   "Produces a certain amount of crystals at each actuation."
+
+        "ability_gold_collecter_3"                      "Gold collecter lvl 3"
+        "ability_gold_collecter_3_description"          "Automatically extracts a certain amount of crystals once in N time."
+
+        "ability_click_4"                               "Dig crystalls lvl 4"
+        "ability_click_4_description"                   "Produces a certain amount of crystals at each actuation."
+
+        "ability_gold_collecter_4"                      "Gold collecter lvl 4"
+        "ability_gold_collecter_4_description"          "Automatically extracts a certain amount of crystals once in N time."
+
+        "ability_click_5"                               "Dig crystalls lvl 5"
+        "ability_click_5_description"                   "Produces a certain amount of crystals at each actuation."
+
+        "ability_gold_collecter_5"                      "Gold collecter lvl 5"
+        "ability_gold_collecter_5_description"          "Automatically extracts a certain amount of crystals once in N time."
+
+        "ability_click_6"                               "Dig crystalls lvl 6"
+        "ability_click_6_description"                   "Produces a certain amount of crystals at each actuation."
+
+        "ability_gold_collecter_6"                      "Gold collecter lvl 6"
+        "ability_gold_collecter_6_description"          "Automatically extracts a certain amount of crystals once in N time."
+
+        
+        "ability_mine_upgrade"                        "Collecter upgrade"
+        "ability_mine_upgrade_description"            "Improves all collectors by N values."
+        
+        "ability_click_upgrade"                       "Dig upgrade"
+        "ability_click_upgrade_description"           "Improves all dig abilities by N values"
+        
+        
+
+}

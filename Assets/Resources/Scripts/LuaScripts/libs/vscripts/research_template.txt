@@ -1,0 +1,79 @@
+local Template = {}
+
+function Template.OnResearch(event)
+    local caster = event.caster
+    local ability = event.ability
+
+    local lvl = ability.GetCurrentLevel()
+    ability.vars.upgradeLvl = lvl
+
+    local playerNpc = ChunkFinder.GetNpcByPlayer(caster.Owner)
+    for _, v in pairs(playerNpc) do
+        event.target = v
+        DoUpgrade(event)
+    end
+
+    if (lvl ~= ability.GetMaxLevel()) then
+        ability.AddLvl(1)
+    else
+        caster.RemoveAbility(ability)
+    end
+
+    return true
+end
+
+function Template.OnUnitSpawned(event)
+    local target = event.target
+    local ability = event.ability
+
+    if (target.isHasAbility(ability.abilityName)) then
+        target.RemoveAbility(ability.abilityName)
+    end
+
+    DoUpgrade(event)
+
+    return true
+end
+
+function DoUpgrade(event)
+    local ability = event.ability
+    local target = event.target
+
+    local abilityToUp = ability.GetAbilitySpecial("upgrade", "string")
+
+    if (target.IsHasAbilitySpecialValue(abilityToUp)) then
+        AddModifierValue(event, abilityToUp)
+    end
+end
+
+function AddModifierValue(event, abilityToUp)
+    local ability = event.ability
+    local target = event.target
+    local value = ability.GetAbilitySpecial("upgrade_count", ability.vars.upgradeLvl, "number")
+
+    local mod = target.GetModifier(ability.abilityName .. "_modifier")
+    if (mod == nil) then
+        mod = ModifiersManager.SetupModifier(event,
+                { name = ability.abilityName .. "_modifier",
+                  IsBuff = "true",
+                  IsHidden = "true",
+                })
+        ModifiersManager.SetupEffect(target, mod)
+    end
+   
+    if(mod.vars.value == nil)then
+        mod.vars.value = 0
+    end
+
+    local targetAbilities = target.GetAbilitiesWithSpecialValue(abilityToUp)
+    for _, v in pairs(targetAbilities) do
+        local tick = v.GetAbilitySpecial(abilityToUp, "number")
+        tick = tick - mod.vars.value + value
+        v.SetSpecialValue(abilityToUp, tick)
+    end
+
+    mod.vars.value = value
+end
+
+return Template
+

@@ -1,0 +1,46 @@
+local collecter = {}
+local dmg_tick = 1
+local magicBox = "building_magic_box"
+function collecter.MainThink(event)
+    local target = event.target
+    local ability = event.ability
+
+    if (target == nil or collecter.broken == true) then
+        return false;
+    end
+
+    local gold_tick = ability.GetAbilitySpecial("gold_tick", "number")
+
+    if (gold_tick == nil) then
+        return false;
+    end
+
+    target.AddGold(gold_tick)
+    local hp = target.GetCurrentHp()
+    if (hp - dmg_tick <= 0) then
+        local unit = Chunk.SetupUnit(magicBox, target.CurrentPos, target.Owner)
+
+        print(target.isChoosed())
+        if (target.isChoosed()) then
+            unit.ChooseUnit()
+        end
+    end
+    target.DealDamage(dmg_tick, target)
+    
+end
+
+function collecter.AddGold(event)
+    local caster = event.caster
+    local ability = event.ability
+
+    local gold_click = ability.GetAbilitySpecial("gold_click", "number")
+    if (gold_click == nil) then
+        return false;
+    end
+
+    caster.AddGold(gold_click)
+
+    return true;
+end
+
+return collecter;

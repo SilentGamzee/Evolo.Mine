@@ -1,0 +1,938 @@
+"npc_abilities"
+{
+	"ability_harvest"
+	{
+		"AbilityTextureName"			"SpellIcon/spider/spider_eyes_icon.png"
+		"MaxLevel"                      "1"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_PASSIVE"	
+	    "AbilityUnitTargetTeam"         "EVOLO_UNIT_TARGET_TEAM_ENEMY"
+	    "AbilityUnitTargetType"         "EVOLO_UNIT_TARGET_NEUTRAL"
+
+	    "AbilityCooldown"               "0"
+
+	    "AbilityManaCost"               "0"
+
+	    "AbilitySpecial"
+	    {
+	        "find_radius"   	"10"
+	    }
+
+	    "OnOwnerSpawned"
+	    {
+	    	"ApplyModifier"
+	        {
+	            "ModifierName"  "modifier_harvester"
+	            "Target"        "CASTER"
+	        }
+	    }
+
+	    "Modifiers"
+	    {
+			"modifier_harvester"
+	        {
+	            "IsBuff"    "1"
+	            "IsHidden"  "0"
+
+	            "ThinkInterval"     "1.0"
+	            "OnIntervalThink"
+	            {
+	                "RunScript"
+			        {					
+			            "ScriptFile"    "libs/vscripts/gather"
+			            "Function"      "MainThink"
+			        } 
+	            }
+	        }
+	    }
+	}
+	
+	
+	"ability_scout"
+	{
+		"AbilityTextureName"			"SpellIcon/spider/patrol_icon.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_PASSIVE"
+		
+		"AbilitySpecial"
+		{
+			"scout_target"   	"npc_spider_worker"
+			"scout_distance"	"3"
+		}
+
+		"OnOwnerSpawned"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"  "modifier_scouter"
+				"Target"        "CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_scouter"
+			{
+				"IsBuff"    "1"
+				"IsHidden"  "0"
+
+				"ThinkInterval"     "1.0"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "libs/vscripts/scout"
+						"Function"      "MainThink"
+					}
+				}
+			}
+		}
+	}
+	
+	"ability_childrenBorn"
+	{
+		"AbilityTextureName"			"SpellIcon/spider/spider-icon_icon.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_PASSIVE"
+		
+		"AbilitySpecial"
+		{
+			"born_time"		"30"
+			"child_count"	"2"
+			"child_name"	"npc_spider-child"
+		}
+
+		"OnOwnerSpawned"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"  "modifier_borning"
+				"Target"        "CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_borning"
+			{
+				"IsBuff"    "1"
+				"IsHidden"  "0"
+
+				"ThinkInterval"     "0.3"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "libs/vscripts/born"
+						"Function"      "MainThink"
+					}
+				}
+			}
+		}
+	}
+
+	"ability_gold_collecter_1"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material1.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_tick"		"1"
+			"time"			"1"
+		}
+
+		"OnOwnerSpawned"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"  "modifier_collecter_1"
+				"Target"        "CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_collecter_1"
+			{
+				"IsBuff"    "1"
+				"IsHidden"  "0"
+
+				"ThinkInterval"     "%time"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "libs/vscripts/collecter"
+						"Function"      "MainThink"
+					}
+				}
+			}
+		}
+	}
+	
+	"ability_click_1"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/pickaxe1.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_click"		"1"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/collecter"
+				"Function"      "AddGold"
+			}
+		}
+	}
+
+	"ability_gold_collecter_2"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material2.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_tick"		"2"
+			"time"			"1"
+		}
+
+		"OnOwnerSpawned"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"  "modifier_collecter_1"
+				"Target"        "CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_collecter_1"
+			{
+				"IsBuff"    "1"
+				"IsHidden"  "0"
+
+				"ThinkInterval"     "%time"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "libs/vscripts/collecter"
+						"Function"      "MainThink"
+					}
+				}
+			}
+		}
+	}
+
+	"ability_click_2"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/pickaxe2.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_click"		"2"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/collecter"
+				"Function"      "AddGold"
+			}
+		}
+	}
+
+	"ability_gold_collecter_3"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material3.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_tick"		"5"
+			"time"			"1"
+		}
+
+		"OnOwnerSpawned"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"  "modifier_collecter_1"
+				"Target"        "CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_collecter_1"
+			{
+				"IsBuff"    "1"
+				"IsHidden"  "0"
+
+				"ThinkInterval"     "%time"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "libs/vscripts/collecter"
+						"Function"      "MainThink"
+					}
+				}
+			}
+		}
+	}
+
+	"ability_click_3"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/pickaxe3.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_click"		"5"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/collecter"
+				"Function"      "AddGold"
+			}
+		}
+	}
+
+	"ability_gold_collecter_4"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material4.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_tick"		"7"
+			"time"			"1"
+		}
+
+		"OnOwnerSpawned"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"  "modifier_collecter_1"
+				"Target"        "CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_collecter_1"
+			{
+				"IsBuff"    "1"
+				"IsHidden"  "0"
+
+				"ThinkInterval"     "%time"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "libs/vscripts/collecter"
+						"Function"      "MainThink"
+					}
+				}
+			}
+		}
+	}
+
+	"ability_click_4"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/pickaxe4.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_click"		"7"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/collecter"
+				"Function"      "AddGold"
+			}
+		}
+	}
+
+	"ability_gold_collecter_5"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material5.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_tick"		"13"
+			"time"			"1"
+		}
+
+		"OnOwnerSpawned"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"  "modifier_collecter_1"
+				"Target"        "CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_collecter_1"
+			{
+				"IsBuff"    "1"
+				"IsHidden"  "0"
+
+				"ThinkInterval"     "%time"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "libs/vscripts/collecter"
+						"Function"      "MainThink"
+					}
+				}
+			}
+		}
+	}
+
+	"ability_click_5"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/pickaxe5.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_click"		"13"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/collecter"
+				"Function"      "AddGold"
+			}
+		}
+	}
+
+	"ability_gold_collecter_6"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material6.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_PASSIVE"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_tick"		"18"
+			"time"			"1"
+		}
+
+		"OnOwnerSpawned"
+		{
+			"ApplyModifier"
+			{
+				"ModifierName"  "modifier_collecter_1"
+				"Target"        "CASTER"
+			}
+		}
+
+		"Modifiers"
+		{
+			"modifier_collecter_1"
+			{
+				"IsBuff"    "1"
+				"IsHidden"  "0"
+
+				"ThinkInterval"     "%time"
+				"OnIntervalThink"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "libs/vscripts/collecter"
+						"Function"      "MainThink"
+					}
+				}
+			}
+		}
+	}
+
+	"ability_click_6"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/pickaxe6.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "0.1"
+
+		"AbilitySpecial"
+		{
+			"gold_click"		"18"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/collecter"
+				"Function"      "AddGold"
+			}
+		}
+	}
+	
+	"ability_build_mine1"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material1.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+
+		"AbilitySpecial"
+		{
+			"building"		"building_shovel"
+			"gold_cost"		"100"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/buildClickBuilding"
+				"Function"      "MainThink"
+			}
+		}
+	}
+
+	"ability_build_mine2"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material2.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+
+		"AbilitySpecial"
+		{
+			"building"		"building_kolodec"
+			"gold_cost"		"750"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/buildClickBuilding"
+				"Function"      "MainThink"
+			}
+		}
+	}
+
+	"ability_build_mine3"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material3.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+
+		"AbilitySpecial"
+		{
+			"building"		"building_house"
+			"gold_cost"		"3800"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/buildClickBuilding"
+				"Function"      "MainThink"
+			}
+		}
+	}
+
+	"ability_build_mine4"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material4.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+
+		"AbilitySpecial"
+		{
+			"building"		"building_mine"
+			"gold_cost"		"8000"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/buildClickBuilding"
+				"Function"      "MainThink"
+			}
+		}
+	}
+
+	"ability_build_mine5"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material5.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+
+		"AbilitySpecial"
+		{
+			"building"		"building_dragon"
+			"gold_cost"		"15000"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/buildClickBuilding"
+				"Function"      "MainThink"
+			}
+		}
+	}
+
+	"ability_build_mine6"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/material6.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+
+		"AbilitySpecial"
+		{
+			"building"		"building_magic_crystall"
+			"gold_cost"		"20000"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/buildClickBuilding"
+				"Function"      "MainThink"
+			}
+		}
+	}
+	
+	"ability_remove_building"
+	{
+		"AbilityTextureName"			"SpellIcon/spider/miner_icon.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+
+		"AbilitySpecial"
+		{
+			"gold_cost"		"-50"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/buildClickBuilding"
+				"Function"      "RemoveBuilding"
+			}
+		}
+	}
+
+	"ability_build_barracks_egg"
+	{
+		"AbilityTextureName"			"SpellIcon/spider/baracks_icon.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+		
+		"AbilitySpecial"
+		{
+			"building"		"building_barracks"
+			"build_time"	"30"
+			"gold_cost"		"300"
+		}
+		
+		"OnSpellStart"
+		{
+			"SpawnUnit"
+			{
+				"UnitName"      "building_spider_egg"
+				"OnSpawn"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "libs/vscripts/buildLogic"
+						"Function"      "MainThink"
+					}
+				}
+			}
+		}
+	}
+
+
+	"ability_build_farm_egg"
+	{
+		"AbilityTextureName"			"SpellIcon/spider/food_building.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+		
+		"AbilitySpecial"
+		{
+			"building"		"building_farm_egg"
+			"build_time"	"15"
+			"gold_cost"		"100"
+		}
+
+		"OnSpellStart"
+		{
+			"SpawnUnit"
+			{
+				"UnitName"      "building_spider_egg"
+				"OnSpawn"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "libs/vscripts/buildLogic"
+						"Function"      "MainThink"
+					}
+				}
+			}
+		}
+	}
+
+	"ability_build_zigguratt"
+	{
+		"AbilityTextureName"			"SpellIcon/spider/zigguratt_icon.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+
+		"AbilitySpecial"
+		{
+			"building"		"building_zigguratt"
+			"build_time"	"30"
+			"gold_cost"		"200"
+		}
+
+		"OnSpellStart"
+		{
+			"SpawnUnit"
+			{
+				"UnitName"      "building_spider_egg"
+				"OnSpawn"
+				{
+					"RunScript"
+					{
+						"ScriptFile"    "libs/vscripts/buildLogic"
+						"Function"      "MainThink"
+					}
+				}
+			}
+		}
+	}
+	
+	
+	"ability_build_worker"
+	{
+		"AbilityTextureName"			"SpellIcon/spider/miner_icon.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+		
+		"ResearchRequirement"
+		{
+			"research_zigguratt"
+		}
+		
+		"AbilitySpecial"
+		{
+			"evolveTarget"		"npc_spider_worker"
+			"build_time"		"30"
+			"food_cost"			"5"
+			"gold_cost"		    "50"
+			
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/evolveLogic"
+				"Function"      "MainThink"
+			}
+		}
+	}
+
+	"ability_build_voin"
+	{
+		"AbilityTextureName"			"SpellIcon/spider/voin_icon.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+		
+		"ResearchRequirement"
+		{
+			"research_barracks"
+		}
+		
+		"AbilitySpecial"
+		{
+			"evolveTarget"		"npc_spider-voin"
+			"build_time"		"30"
+
+			"food_cost"			"10"
+			"gold_cost"		    "150"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/evolveLogic"
+				"Function"      "MainThink"
+			}
+		}
+	}
+
+	"ability_mine_upgrade"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/crystall_up.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"MaxLevel"                      "3"
+		"AbilityCooldown"               "30.0"
+
+		"AbilitySpecial"
+		{		
+			"gold_cost"			"150 300 450"
+			"upgrade"			"gold_tick"
+			"upgrade_count"		"1 2 3"
+		}
+
+		"OnSpellStart"
+		{
+			"AddResearch"
+			{
+				"research"		"research_template"
+			}
+		}
+	}
+
+	"ability_click_upgrade"
+	{
+		"AbilityTextureName"			"SpellIcon/mine/click_up.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"MaxLevel"                      "3"
+		"AbilityCooldown"               "30.0"
+
+
+		"AbilitySpecial"
+		{
+			"gold_cost"			"150 300 450"
+			"upgrade"			"gold_click"
+			"upgrade_count"		"1 2 3"
+		}
+
+		"OnSpellStart"
+		{
+			"AddResearch"
+			{
+				"research"		"research_template2"
+			}
+		}
+	}
+	
+	"ability_build_builder"
+	{
+		"AbilityTextureName"			"SpellIcon/spider/builder_icon.png"
+
+		"AbilityBehavior"               "EVOLO_ABILITY_BEHAVIOR_NO_TARGET"
+
+		"AbilityCooldown"               "3.0"
+		
+		"AbilitySpecial"
+		{
+			"evolveTarget"		"npc_spider-builder"
+			"build_time"		"30"
+
+			"food_cost"			"2"
+			"gold_cost"		    "50"
+		}
+
+		"OnSpellStart"
+		{
+			"RunScript"
+			{
+				"ScriptFile"    "libs/vscripts/evolveLogic"
+				"Function"      "MainThink"
+			}	
+		}
+	}
+	
+	
+}

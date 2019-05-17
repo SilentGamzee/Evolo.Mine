@@ -1,0 +1,26 @@
+if (LuaLangManager == nil) then
+    LuaLangManager = {}
+    LuaLangManager.langs = {}
+end
+
+local function PreInitTable(t)
+    return t["LanguagesKV"]
+end
+
+function LuaLangManager:Init()
+    if (KVlibs["LanguagesKV"] == nil ) then
+        error("Lua: LuaLangManager is broken")
+    end
+
+    local t = PreInitTable(KVlibs["LanguagesKV"])
+
+    local langTable = EvoEngine:loadKV(t)
+    for k,v in pairs(langTable) do
+        LuaLangManager.langs[k] = v[k]
+        LuaLangManager.langs[k].langName = k
+    end
+end
+
+function LuaLangManager.GetLangTable(langName)
+    return LuaLangManager.langs[langName]
+end

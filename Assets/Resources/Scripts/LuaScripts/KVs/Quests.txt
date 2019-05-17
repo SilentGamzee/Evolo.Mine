@@ -1,0 +1,141 @@
+"Quests"
+{
+    "Template"
+    {
+        "id"            "0"
+        "title"         "Template quest"
+        "description"   "Template description"
+        "objectivies"   "Template objectivies"
+        "reward"        ""
+    }
+    
+    "Combination"
+    {
+        "id"            "1"
+        "title"         "No quests yet"
+        "description"   "After release"
+        "objectivies"   "Wait release date"
+        "reward"        "npc_rabbit_lvl1"
+    }
+
+    "Evolution"
+    {
+        "id"            "2"
+        "title"         "Evolution quest"
+        "description"   "Be near with your similar friend."
+        "reward"        "item_spider_log_1"
+    }
+
+    "Canibalism"
+    {
+        "id"            "3"
+        "title"         "Canibal quest"
+        "description"   "Time to kill another living creature"
+        "objectivies"   "Kill another rabbit"
+        "reward"        "item_rabbitHead"
+    }
+
+    "Frogs hunting"
+    {
+        "id"            "4"
+        "title"         "Frogs hunting quest"
+        "description"   "Feel frog blood. Kill 2 frogs."
+        "reward"        "npc_deadLightFrog_lvl1"
+    }
+
+    "Lair"
+    {
+        "id"            "5"
+        "title"         "Lair quest"
+        "description"   "Combine 3 logs and use lair, by moving in."
+        "reward"        "item_log_1"
+    }
+
+    "Race combination"
+    {
+        "id"            "6"
+        "title"         "Race combination quest"
+        "description"   "Kill frog. Steal frog cavior and combine with logs."
+        "reward"        "npc_darkfrog_lvl1"
+    }
+
+    "Death ritual"
+    {
+        "id"            "7"
+        "title"         "Death ritual quest"
+        "description"   "Combine two rabbit heads and make ritual by moving in. Except living creatures, anothers take damage."
+        "reward"        "building_undeadTotem"
+    }
+
+    "Spider ritual"
+    {
+        "id"            "8"
+        "title"         "Spider ritual quest"
+        "description"   "Make ritual with spider."
+        "reward"        "npc_redSpirit_lvl1"
+    }
+
+    "Reincarnation"
+    {
+        "id"            "9"
+        "title"         "Reincarnation quest"
+        "description"   "Combine two bones and reincarnate undead creature. Careful, living/spirit creatures take damage."
+        "reward"        "building_spiritTotem"
+    }
+
+    "Way to Hell"
+    {
+        "id"            "10"
+        "title"         "Hell quest"
+        "description"   "Combine Red soul of Rabbit and rocks. Hell is your reward."
+        "reward"        ""
+    }
+    
+    "Slime killer"
+    {
+        "id"            "11"
+        "title"         "Kill quest"
+        "description"   "Would you kindly to destroy 3 slimes ? Thanks"
+        "reward"        "npc_rabbit_lvl1"
+    }
+    
+    "Slime N Rabbit"
+    {
+        "id"            "12"
+        "title"         "SlimoRabbit quest"
+        "description"   "Combine Rabbit 3 lvl and slime"
+        "reward"        "npc_rabbit_lvl1"
+    }
+    
+    "More slimes"
+    {
+        "id"            "13"
+        "title"         "Slimes quest"
+        "description"   "Evolve to Slime 2 lvl"
+        "reward"        "npc_rabbit_lvl1"
+    }
+    
+    "Kill Overlord"
+    {
+        "id"            "14"
+        "title"         "Overlord quest"
+        "description"   "I hate overlords. Kill one."
+        "reward"        "npc_rabbit_lvl1"
+    }
+
+    "Kill Gins of Life"
+    {
+        "id"            "15"
+        "title"         "Gin quest"
+        "description"   "I hate Gins too. Kill a few gins, 3 enough"
+        "reward"        "npc_skelet_lvl1"
+    }
+    
+    "NO MORE"
+    {
+        "id"            "16"
+        "title"         "END quest"
+        "description"   "The Overlords stole quests, so that's it. Thanks for playing."
+        "reward"        "npc_skelet_lvl1"
+    }
+}

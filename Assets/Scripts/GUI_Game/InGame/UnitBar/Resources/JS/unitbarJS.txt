@@ -1,0 +1,46 @@
+
+
+var Hp_bar = document.getElementById("Hp_bar");
+
+UpdateHearts = function(n, max) {
+    var proc = n / max * 100;
+    Hp_bar.style.width = proc+"%";
+}   
+
+SetupUnitName = function (name) {
+    var Title = document.getElementById("Title");
+    Title.innerHTML = name;
+};
+
+function SetElementEnable(el_name, enable){
+     var progressBarBox = document.getElementById(el_name);
+    if (!enable)
+        progressBarBox.style.display = "none";
+    else
+        progressBarBox.style.display = "block"; 
+}
+
+SetUnitBarEnable = function(enable){
+    SetElementEnable("UnitBar", enable);
+}
+
+IsEnabled = function(){
+    var UnitBar = document.getElementById("UnitBar");
+    return UnitBar.style.display !=="none";
+}
+
+//Progress bar funcs
+SetProgressBarEnable = function(enable){
+    SetElementEnable("progressBarBox", enable);
+}
+
+UpdateProgressBar = function(progress){
+    if(progress<1){
+        SetProgressBarEnable(false);
+    }else{
+        SetProgressBarEnable(true);
+    }
+    var progressBar_progress = document.getElementById("progressBar_progress");
+    progressBar_progress.style.width = progress+"%";
+}
+

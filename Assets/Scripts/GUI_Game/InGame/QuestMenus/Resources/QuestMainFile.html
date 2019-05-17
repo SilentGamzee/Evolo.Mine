@@ -1,0 +1,770 @@
+<meta name='languages' content='en'/>
+
+<style type='text/css' xmlns:font-family="http://www.w3.org/1999/xhtml">
+
+    body {
+        font-family: "itc_friz_quadrata";
+    }
+
+    #content-box {
+
+        background-size: 100% 100%;
+
+        width: 40px;
+        height: 60px;
+
+        position: fixed;
+        top: 55px;
+        right: 10px;
+    }
+
+    #quest_bg_button {
+        width: 100%;
+        height: 100%;
+
+        position: relative;
+        background-size: 100% 100%;
+        background: url("resources://Image/Buttons/small_button_hover.png");
+
+        color-overlay: white;
+        opacity: 1.5;
+    }
+
+    #quest_bg_button_hover {
+        width: 100%;
+        height: 100%;
+
+        position: relative;
+        background-size: 100% 100%;
+        background: none;
+
+        color-overlay: rgba(53, 255, 250, 0.98);
+    }
+
+    #quest_bg_button_hover:hover {
+        background: url("resources://Image/Buttons/small_button_hover.png");
+    }
+
+    #question {
+        background: url("Image/Buttons/Znak.png");
+
+        width: 16px;
+        height: 29px;
+
+        position: relative;
+
+        top: calc(50% - 15px);
+        left: calc(50% - 8px);
+
+        color-overlay: white;
+        opacity: 1;
+    }
+
+    #QuestsList {
+        width: 400px;
+        height: 100%;
+
+        position: fixed;
+        top: 120px;
+        right: 10px;
+    }
+
+    .Quest {
+        width: 100%;
+        height: 60px;
+
+        position: relative;
+        margin-top: 13px;
+
+    / / background: green;
+    }
+
+    .QuestTitle {
+        width: 100%;
+        height: 100%;
+
+        position: relative;
+        bottom: 13px;
+        right: 0px;
+        text-align: right;
+
+    }
+
+    .QuestTitleBG {
+        display: inline-block;
+        width: 60%;
+        height: 25px;
+
+        color-overlay: black;
+        background: linear-gradient(to left, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
+        opacity: .4;
+
+    }
+
+    .QuestTitleText {
+
+        color: #d1d628;
+        font-size: 13pt;
+
+        font-weight: bold;
+
+        color-overlay: white;
+        opacity: 1;
+    }
+
+    .QuestDescr {
+        width: 100%;
+        height: 40px;
+
+        position: relative;
+        bottom: 50%;
+        right: 40px;
+        text-align: right;
+
+        font-size: 12pt;
+        color: #c4c4c4;
+        overflow: hidden;
+
+    }
+
+    .QuestMarkBG {
+        display: inline-block;
+        width: 40px;
+        height: 40px;
+
+        position: relative;
+        right: 0px;
+        top: 10px;
+
+        background-size: 100% 100%;
+        background: url("Image/Buttons/ComboGlowBG.png");
+    }
+
+    .QuestMarkBG_hover {
+        width: 40px;
+        height: 40px;
+
+        position: relative;
+
+        color-overlay: white;
+
+        background-size: 100% 100%;
+        background: none;
+
+        opacity: 1;
+    }
+
+    .QuestMarkBG_hover:hover {
+        background: url("Image/Buttons/ComboGlovv.png");
+    }
+
+    .QuestMark {
+        width: 25px;
+        height: 25px;
+
+        position: relative;
+        left: 7px;
+        top: 5px;
+        background-size: 100% 100%;
+        background: url("Image/Buttons/znak_2.png");
+
+        color-overlay: white;
+        opacity: 1;
+    }
+
+    #MainBox {
+        position: relative;
+    }
+
+    #AbilityBar {
+
+        display: none;
+        width: 752px;
+        height: 140px;
+
+        position: fixed;
+        bottom: 0px;
+        left: calc(50% - 225px);
+        color-overlay: white;
+        opacity: 1.0;
+    }
+
+    #AbilityBar_BG {
+        display: inline-block;
+        width: 424px;
+        height: 100%;
+        background: #393c2b;
+    }
+
+    #AbilityBar_center {
+        display: inline-block;
+        width: 395px;
+        height: 95px;
+        background: url("resources://Image/abilities_back");
+
+        border: 3px solid black;
+
+        position: relative;
+        bottom: -5px;
+        left: 10px;
+    }
+
+    #statsBar {
+        display: inline-block;
+        background: #2c3326;
+        border: 3px solid black;
+        height: 95px;
+        width: 65px;
+
+        position: relative;
+        bottom: 0px;
+        left: 0px;
+    }
+
+    .statsAttribute {
+        width: 100%;
+        height: 20px;
+        margin-top: 3px;
+    }
+
+    .statsImage {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        background-size: 100% 100%;
+
+        text-align: right;
+        position: absolute;
+        right: 3px;
+    }
+
+    .statsText {
+        display: inline-block;
+        width: 40px;
+        height: 20px;
+        font-size: 12pt;
+        position: absolute;
+        right: 24px;
+        text-align: right;
+        text-shadow: 2px 1px 2px rgba(0, 0, 0, 1);
+    }
+
+    #HP_MANA_bar {
+        display: inline-block;
+        height: 60px;
+        width: 385px;
+        position: relative;
+        bottom: -8px;
+        left: 18px;
+    }
+
+    #HP_BG {
+        display: inline-block;
+        width: 370px;
+        height: 25px;
+
+        color-overlay: white;
+        background: linear-gradient(to bottom, rgba(22, 31, 10, 1) 10%, rgba(30, 40, 16, 1) 52%, rgba(22, 31, 10, 1) 96%);
+
+        border: 2px solid black;
+        border-radius: 2px 2px 2px 2px;
+
+        position: relative;
+        left: 5px;
+        top: 2px;
+    }
+
+    #HP_FG {
+        display: inline-block;
+        width: 30%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgba(55, 85, 31, 1) 6%, rgba(81, 149, 50, 1) 22%, rgba(57, 84, 29, 1) 100%);
+        border-radius: 2px 4px 2px 4px;
+    }
+
+    #Mana_BG {
+        display: inline-block;
+        width: 370px;
+        height: 25px;
+        color-overlay: white;
+        background: linear-gradient(to bottom, rgb(20, 26, 38) 10%, rgb(21, 34, 68) 52%, rgb(21, 34, 68) 96%);
+
+        border: 2px solid black;
+        border-radius: 2px 2px 2px 2px;
+
+        position: relative;
+        top: 3px;
+        left: 5px;
+    }
+
+    #MP_FG {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom, rgb(50, 73, 153) 6%, rgb(68, 110, 220) 22%, rgb(50, 73, 153) 100%);
+
+        border-radius: 2px 4px 2px 4px;
+    }
+
+    .HP_MP_text {
+        width: 100%;
+        height: 100%;
+        font-size: 12pt;
+        position: absolute;
+        text-align: center;
+        vertical-align: middle;
+
+        text-shadow: 2px 1px 2px rgba(0, 0, 0, 1);
+    }
+
+    .Spell {
+        box-sizing: border-box;
+        display: inline-block;
+        background-size: 100% 100%;
+        background: url('resources://Image/Anothers/beautycase.png');
+        width: 60px;
+        height: 60px;
+
+        position: relative;
+        top: 3px;
+
+        margin-left: 5px;
+    }
+
+    .SpellImg {
+        position: relative;
+        width: 57px;
+        height: 57px;
+
+        top: 3px;
+        left: 3px;
+
+        background-size: 100% 100%;
+        background: url("resources://Image/Anothers/6BF_Retched_Blackrock.png");
+    / / background: url("resources://Image/Hearts/Full_red.png");
+    }
+
+    .Spell_pass_rad_1 {
+        width: 100%;
+        height: 100%;
+        color-overlay: white;
+        background: linear-gradient(to bottom, rgba(10, 10, 10, 1) 1%, rgba(6, 6, 6, 0) 21%, rgba(0, 0, 0, 0) 55%, rgba(3, 3, 3, 0) 68%, rgba(10, 10, 10, 1) 99%);
+    }
+
+    .Spell_pass_rad_2 {
+        width: 100%;
+        height: 100%;
+        color-overlay: white;
+        background: linear-gradient(to right, rgba(10, 10, 10, 1) 1%, rgba(6, 6, 6, 0) 21%, rgba(0, 0, 0, 0) 55%, rgba(3, 3, 3, 0) 68%, rgba(10, 10, 10, 1) 99%);
+
+    }
+
+    .SpellCD_BG {
+        position: fixed;
+        width: 57px;
+        height: 57px;
+
+        color-overlay: white;
+        background: #000000;
+        opacity: 0.6;
+    }
+
+    .SpellCD_Text {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        color: white;
+        font-size: 14pt;
+        vertical-align: middle;
+        text-align: center;
+        opacity: 1.0;
+
+        top: 10%;
+    }
+
+    #SpellTooltip {
+        display: none;
+        width: 300px;
+
+        position: fixed;
+        left: calc(50% - 150px);
+        bottom: 100px;
+        border-radius: 4px;
+        border: solid black 1px;
+        background: rgba(32, 32, 32, 0.95);
+    }
+
+    #SpellTooltip_box {
+
+        width: 90%;
+        position: relative;
+        left: 5%;
+
+        margin-top: 8px;
+        margin-bottom: 5px;
+        overflow: hidden;
+    }
+
+    #SpellTooltip_title {
+        width: 100%;
+        height: 25px;
+        border-color: #858585;
+        border-bottom: 1px solid #858585;
+        font-size: 14pt;
+        position: relative;
+    }
+
+    #SpellTooltip_title_text {
+        display: inline-block;
+        width: 80%;
+        height: 25px;
+        position:relative;
+    }
+
+    #SpellTooltip_lvl {
+        display: inline-block;
+        width: 20%;
+        height: 17px;
+        font-size:10pt;
+        font-weight: bold;
+        position:relative;
+        right:0px;
+        bottom:0px;
+        text-align:right;
+    }
+
+    #SpellTooltip_specials {
+        font-size: 10pt;
+        font-weight: bold;
+        border-color: #858585;
+        border-bottom: 1px solid #858585;
+        position: relative;
+        margin-top: 8px;
+    }
+
+    #SpellTooltip_requirements {
+        font-size: 12pt;
+        margin-top: 8px;
+        font-weight: bold;
+    }
+
+    #SpellTooltip_requirements_list {
+        font-size: 12pt;
+        margin-top: 3px;
+        margin-left: 14px;
+        font-weight: normal;
+    }
+
+    #SpellTooltip_descr {
+        font-size: 12pt;
+        margin-top: 8px;
+        color: #b7b7b7;
+
+    }
+
+    #SpellTooltip_vars {
+        position: relative;
+        margin-top: 8px;
+    }
+
+    .Var_name {
+        display: inline-block;
+        font-weight: bold;
+    }
+
+    .Value_bar {
+        display: inline-block;
+        color: #4d4d4d;
+        position: relative;
+        left: 5px;
+    }
+
+    .Var_value {
+        display: inline-block;
+
+        color: #4d4d4d;
+        position: relative;
+
+    }
+
+    .Var_value_current {
+        display: inline-block;
+
+        color: #ffd605;
+        position: relative;
+    }
+
+    #Resources {
+        width: 275px;
+        height: 46px;
+        background: url("resources://Image/Quests/GUI_bg.png");
+        color-overlay: rgba(3, 3, 3, .5);
+
+        position: fixed;
+        top: 10px;
+        right: 10px;
+    }
+
+    .Resource {
+        display: inline-block;
+        width: 130px;
+        height: 36px;
+
+        background-size: 100% 100%;
+        background: url('resources://Image/Anothers/beautycase.png');
+        color-overlay: rgba(255, 255, 255, 1);
+
+        margin-left: 5px;
+        margin-top: 5px;
+    }
+
+    .Resource_img {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background-size: 100% 100%;
+        background: url("resources://Image/Hearts/Full_red.png");
+
+        position: relative;
+        left: 7px;
+        top: 2px;
+    }
+
+    .Resource_text {
+        display: inline-block;
+        width: 80px;
+        height: 32px;
+        text-align: right;
+        font-size: 12pt;
+
+        position: relative;
+        top: 2px;
+        right: 0px;
+    }
+
+    #Error_text {
+        position: fixed;
+        width: 30%;
+        height: 32px;
+
+        bottom: 150px;
+        left: 40%;
+        text-align: center;
+        font-weight: bold;
+
+        font-size: 19pt;
+        color: #ffffff;
+    }
+
+    #PauseMenu {
+        display: none;
+        width: 400px;
+
+        position: fixed;
+        left: calc(50% - 200px);
+        top: 30%;
+
+        color-overlay: rgba(3, 3, 3, .6);
+        background: url("resources://Image/Quests/GUI_bg.png");
+    }
+
+    #PauseTitleText {
+        text-align: center;
+        color-overlay: none;
+        font-size: 22pt;
+    }
+
+    .pauseMenuButton {
+        width: 200px;
+        height: 50px;
+
+        background-size: 100% 100%;
+        background: url("resources://Image/Buttons/big_button.png");
+        color-overlay: none;
+        font-size: 18pt;
+
+        margin-top: 10px;
+        margin-bottom: 15px;
+
+        position: relative;
+        left: calc(50% - 100px);
+    }
+
+    .big_butt_hover {
+        background: none;
+        width: 200px;
+        height: 50px;
+        background-size: 100% 100%;
+
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .big_butt_hover:hover {
+        background: url("resources://Image/Buttons/big_button_hover.png");
+        margin: 1px;
+    }
+
+</style>
+
+
+<div id='MainBox'>
+    <div id="PauseMenu">
+        <div id="PauseTitleText">GAME PAUSED</div>
+        <div class="pauseMenuButton">
+            <div class="big_butt_hover" onclick="GUI_Game.InGame.PauseMenu.PauseMenu_HTML.OnResume">Resume</div>
+        </div>
+        <div class="pauseMenuButton">
+            <div class="big_butt_hover" onclick="GUI_Game.InGame.PauseMenu.PauseMenu_HTML.OnExit">Exit</div>
+        </div>
+    </div>
+
+
+    <!--
+    <div id='content-box' onclick="OnQuestButtonClick(event)">
+        <div id="quest_bg_button">
+            <div id="quest_bg_button_hover"
+                 onmousedown="ChangeOpacityQuestion(event,0.6)"
+                 onmouseup="ChangeOpacityQuestion(event,1.0)">
+                <div id="question"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="QuestsList">
+
+        <div class="Quest" value="0">
+
+            <div class="QuestTitle">
+                <div class="QuestTitleBG">
+                    <div class="QuestTitleText">
+                        Stolen paints
+                    </div>
+                </div>
+                <div class="QuestMarkBG" value="1" onclick="ShowQuestWindow('1')">
+                    <div class="QuestMarkBG_hover"
+                         onmousedown="ChangeOpacityQuestQuestion(event,this,'0.6')"
+                         onmouseup="ChangeOpacityQuestQuestion(event,this,'1.0')"
+                         onmouseleave="returnOpacity()">
+                        <div class="QuestMark">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="QuestDescr">
+                return Virginity (not your) Virginity (not your) Virginity (not your) Virginity (not your) Virginity
+                (not your)
+                ssss
+            </div>
+        </div>
+    </div>
+    -->
+
+    <div id="AbilityBar">
+
+        <div id="statsBar">
+            <div id="Attack" class="statsAttribute">
+                <div class="statsText">0</div>
+                <div class="statsImage"
+                     style="background: url('resources://Image/svvord');"></div>
+            </div>
+            <div id="Strength" class="statsAttribute">
+                <div class="statsText">0</div>
+                <div class="statsImage"
+                     style="background: url('resources://Image/Strength_simple');"></div>
+            </div>
+            <div id="Agility" class="statsAttribute">
+                <div class="statsText">0</div>
+                <div class="statsImage"
+                     style="background: url('resources://Image/Agility_simple');"></div>
+            </div>
+            <div id="Intelligence" class="statsAttribute">
+                <div class="statsText">0</div>
+                <div class="statsImage"
+                     style="background: url('resources://Image/Intelligence_simple');"></div>
+            </div>
+        </div>
+        <div id="AbilityBar_BG">
+            <div id="HP_MANA_bar">
+                <div id="HP_BAR">
+                    <div id="HP_BG">
+                        <div id="HP_FG"></div>
+                        <div id="HP_TEXT" class="HP_MP_text">0 / 0</div>
+                    </div>
+                </div>
+
+                <div id="MP_BAR">
+                    <div id="Mana_BG">
+                        <div id="MP_FG"></div>
+                        <div id="MP_TEXT" class="HP_MP_text">1 / 1</div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div id="AbilityBar_center">
+                <div class="Spell" ability="ABILITY">
+                    <div class="SpellImg"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="Error_text">
+    </div>
+
+    <div id="SpellTooltip">
+        <div id="SpellTooltip_box">
+            <div id="SpellTooltip_title">
+                <div id="SpellTooltip_title_text">&AbilityTitle;</div>
+                <div id="SpellTooltip_lvl">Level &Ability_lvl;</div>
+            </div>
+            <div id="SpellTooltip_specials">
+                <div id="AbilitySpecial" style="">
+                    ABILITY: &AbilitySpecial;
+                </div>
+            </div>
+            <div id="SpellTooltip_requirements">
+                Require:
+                <div id="SpellTooltip_requirements_list"></div>
+            </div>
+            <div id="SpellTooltip_descr">
+                &AbilityDescription;
+            </div>
+            <div id="SpellTooltip_vars">
+            </div>
+        </div>
+    </div>
+
+    <div id="Resources">
+        <div id="Resource_gold" class="Resource">
+            <div class="Resource_img" style="background:url(resources://SpellIcon/usual/mineral_icon.png);"></div>
+            <div id="gold_text" class="Resource_text">
+                0
+            </div>
+        </div>
+        <div id="Resource_food" class="Resource">
+            <div class="Resource_img" style="background:url(resources://SpellIcon/usual/food_icon.png);"></div>
+            <div id="food_text" class="Resource_text">
+                0/0
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script type="text/javascript" src="resources://JS/main.txt">
+    var UI = PowerUI.UI;
+    UI.Language = "en";
+    UI.Variables["AbilityTitle"] = "Title";
+</script>
+<script type="text/javascript" src="resources://JS/abilityBar.txt"></script>
+<script type="text/javascript" src="resources://JS/quests.txt"></script>
+<script type="text/javascript" src="resources://JS/resources.txt"></script>
+<script type="text/javascript" src="resources://JS/errorBar.txt"></script>
+<script type="text/javascript" src="resources://JS/pauseMenuJS.txt"></script>

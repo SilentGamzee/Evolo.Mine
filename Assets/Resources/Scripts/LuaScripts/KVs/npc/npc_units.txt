@@ -1,0 +1,268 @@
+"npc_units" 
+{
+    "error" 
+    {
+        "model"         "error"
+    }
+    
+ 
+    
+    "npc_Tree" 
+    {
+        "model"         "Forest/Nature/TileTree"
+        "group"         "tree"
+        
+        "Sound"         "tree_chop"
+        "SoundVolume"   "0.1"
+        
+        "itemDrop"      "item_log_1"
+        
+        "Stats"
+        {
+            "hp"            "3"
+            "attack_dmg"    "0"
+            "movespeed"     "1"
+        }
+    }
+    
+    "npc_spider_queen" 
+    {
+        "model"         "npc/units/spiders/spider_mother"
+        "group"         "spider"
+
+        "Sound"         ""
+        "SoundVolume"   ""
+
+        "itemDrop"      ""
+        
+        "foodGive"      "30"
+        "foodCost"      "0"
+
+
+        "Abilities"
+        {
+            "Ability1"     "ability_childrenBorn"
+        }
+        
+        
+        "Stats"
+        {
+            "hp"            "5"
+            "attack_dmg"    "1"
+            "movespeed"     "0"
+        }
+    }
+    
+    "npc_spider_worker"
+    {
+        "model"         "npc/units/spiders/spider_worker"
+        "group"         "spider"
+
+        "Sound"         ""
+        "SoundVolume"   ""
+
+        "itemDrop"      ""
+
+        "foodGive"      "0"
+        "foodCost"      "5"
+
+        "EvoCrossing"
+        {
+        }
+        
+        "Abilities"
+        {
+            "Ability1"     "ability_harvest"
+        }
+
+
+        "Stats"
+        {
+            "hp"            "1"
+            "attack_dmg"    "1"
+            "movespeed"     "1"
+        } 
+    }
+    
+    "npc_spider-voin"
+    {
+        "model"         "npc/units/spiders/spider-voin"
+        "group"         "spider"
+
+        "Sound"         ""
+        "SoundVolume"   ""
+
+        "itemDrop"      ""
+
+        "foodGive"      "0"
+        "foodCost"      "10"
+
+        "EvoCrossing"
+        {
+        }
+
+        "Abilities"
+        {
+            "Ability1"     "ability_scout"
+        }
+        
+
+
+        "Stats"
+        {
+            "hp"            "3"
+            "attack_dmg"    "2"
+            "movespeed"     "1"
+        }
+    }
+
+    "npc_spider-child"
+    {
+        "model"         "npc/units/spiders/spider-child"
+        "group"         "spider"
+
+        "Sound"         ""
+        "SoundVolume"   ""
+
+        "itemDrop"      ""
+
+        "foodGive"      "0"
+        "foodCost"      "1"
+
+        "EvoCrossing"
+        {
+        }
+
+        "Abilities"
+        {
+            "Ability1"     "ability_build_worker"
+            "Ability2"     "ability_build_voin"
+            "Ability3"     "ability_build_builder"
+        }
+
+        "Stats"
+        {
+            "hp"            "1"
+            "attack_dmg"    "0"
+            "movespeed"     "0"
+        }
+    }
+
+    "npc_spider-builder"
+    {
+        "model"         "npc/units/spiders/spider-builder"
+        "group"         "spider"
+
+        "Sound"         ""
+        "SoundVolume"   ""
+
+        "itemDrop"      ""
+
+        "foodGive"      "0"
+        "foodCost"      "2"
+        
+        "Abilities"
+        {
+            "Ability1"     "ability_build_barracks_egg"
+            "Ability2"     "ability_build_zigguratt"
+            "Ability3"     "ability_build_farm_egg"
+        }
+
+        "Stats"
+        {
+            "hp"            "2"
+            "attack_dmg"    "0"
+            "movespeed"     "1"
+        }
+    }
+
+    "npc_frog_small"
+    {
+        "model"         "npc/units/frogs/frog_small_1"
+        "group"         "frog"
+
+        "Sound"         ""
+        "SoundVolume"   ""
+
+        "GoldMin"	    "50"
+        "GoldMax"		"100"
+
+        "itemDrop"      ""
+        
+
+        "Stats"
+        {
+            "hp"            "5"
+            "attack_dmg"    "1"
+            "movespeed"     "1"
+        }
+    }
+
+    "npc_frog_big"
+    {
+        "model"         "npc/units/frogs/big_frog"
+        "group"         "frog"
+
+        "Sound"         ""
+        "SoundVolume"   ""
+
+        "GoldMin"	    "100"
+        "GoldMax"		"200"
+
+        "itemDrop"      ""
+
+        "EvoCrossing"
+        {
+        }
+
+        "Stats"
+        {
+            "hp"            "10"
+            "attack_dmg"    "1"
+            "movespeed"     "1"
+        }
+    }
+    
+    "npc_hollow_small"
+    {
+        "model"         "npc/units/hollows/hollow1"
+        "group"         "hollow"
+
+        "Sound"         ""
+        "SoundVolume"   ""
+
+        "GoldMin"	    "50"
+        "GoldMax"		"100"
+        
+        "itemDrop"      ""
+
+        "Stats"
+        {
+            "hp"            "5"
+            "attack_dmg"    "2"
+            "movespeed"     "1"
+        } 
+    }
+
+    "npc_hollow_big"
+    {
+        "model"         "npc/units/hollows/hollow2"
+        "group"         "hollow"
+
+        "Sound"         ""
+        "SoundVolume"   ""
+
+        "GoldMin"	    "100"
+        "GoldMax"		"200"
+        
+        "itemDrop"      ""
+
+        "Stats"
+        {
+            "hp"            "7"
+            "attack_dmg"    "2"
+            "movespeed"     "1"
+        }
+    }
+
+}

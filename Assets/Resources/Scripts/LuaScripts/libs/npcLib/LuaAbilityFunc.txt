@@ -1,0 +1,163 @@
+if (LuaAbilityFunc == nil) then
+    LuaAbilityFunc = {}
+end
+
+local modifiers = {}
+
+function LuaAbilityFunc.ApplyModifier(event)
+    local ability = event.ability
+    local modifiersT = ability.GetModifierTable()
+
+    local applyModifier = event.table
+
+    if (modifiersT == nil) then
+        print("Cant apply modifier cause nil")
+        return
+    end
+
+    local modName = ""
+    local target = ""
+    for k, v in pairs(applyModifier) do
+        if (k:lower() == "modifiername") then
+            modName = v
+        end
+        if (k:lower() == "target") then
+            target = event[v:lower()]
+        end
+    end
+
+    local modTable
+    for k, v in pairs(modifiersT) do
+        if (k:lower() == modName:lower()) then
+            modTable = v
+            modTable.name = k
+        end
+    end
+    event.applyModifier = nil
+
+    local interval = modTable.ThinkInterval
+    if (interval == "" or interval == nil) then
+        return
+    end
+
+    local fSymbol = string.sub(interval, 1, 1)
+    if (fSymbol == "%") then
+
+        local varName = string.sub(interval, 2, string.len(interval))
+
+        local var = ability.GetAbilitySpecial(varName, "number")
+        if (var == nil) then
+            return;
+        end
+        modTable.ThinkInterval = var
+    end
+
+    local modifier = ModifiersManager.SetupModifier(event, modTable)
+    ModifiersManager.SetupEffect(target, modifier)
+end
+
+function LuaAbilityFunc.SpawnUnit(event)
+    local caster = event.caster
+
+    local t = event.table
+    local unitName = t.UnitName
+    local onSP = t.OnSpawn
+    if (unitName == nil or caster == nil or caster.Owner == nil) then
+        return;
+    end
+
+    local pos = AI_Calculation.FindFreePosNearPos(caster.CurrentPos, false)
+    local unit;
+    if (Chunk.IsUnit(unitName) == true or Chunk.IsBuilding(unitName)) then
+        unit = Chunk.SetupUnit(unitName, pos, caster.Owner)
+
+    else
+        unit = Chunk.SetupBuilding(unitName, pos, caster.Owner)
+    end
+
+    if (onSP ~= nil) then
+        local e = { ["caster"] = unit,
+                    ["target"] = event.target,
+                    ["ability"] = event.ability, }
+        LuaAbilityEvents.ParseEvents(e, onSP)
+    end
+end
+
+function LuaAbilityFunc.RunScript(event)
+    if (event.table.broken == true) then
+        return
+    end
+    local eventName = event.name
+
+    if (modifiers[eventName] == nil) then
+        local t = event.table
+
+        local path = t.ScriptFile
+        local func = t.Function
+        t = nil
+
+        if (path == nil or func == nil) then
+            event.table.broken = true
+            return
+        end
+
+        local scriptLib = EvoEngine:loadLibrary(path)
+        path = nil
+        if (scriptLib == nil) then
+            event.table.broken = true
+            return
+        end
+
+        modifiers[eventName] = scriptLib[func]
+        func = nil
+    end
+
+    local succ = modifiers[eventName](event)
+    if (succ == false) then
+        event.table.broken = true
+    end
+end
+
+function LuaAbilityFunc.AddResearch(event)
+    local caster = event.caster
+
+    local researchName = event.table.research
+
+    if (researchName == nil or researchName == "") then
+        return;
+    end
+    local researchTable = LuaResearchManager.GetResearch(researchName)
+
+    local research = ResearchManager.SetupResearch(researchName)
+    if (researchTable ~= nil) then
+        if (researchTable.OnResearch ~= nil) then
+            research.SetOnResearch(researchTable.OnResearch)
+        end
+        if (researchTable.OnUnitSpawned ~= nil) then
+            research.SetOnUnitSpawned(researchTable.OnUnitSpawned)
+        end
+        if (researchTable.OnResearchRemove ~= nil) then
+            research.SetOnResearchRemove(researchTable.OnResearchRemove)
+        end
+    end
+    research.SetCaster(caster)
+    research.SetAbility(event.ability)
+
+    caster.Owner.AddResearch(research)
+end
+
+function LuaAbilityFunc.RemoveAbility(event)
+    local caster = event.caster
+    local t = event.table
+    local target = event[t.target]
+    local abilityName = t.abilityName
+    t = nil
+
+    if (target == nil or abilityName == nil or abilityName == "") then
+        return
+    end
+
+    caster.RemoveAbility(abilityName)
+end
+
+

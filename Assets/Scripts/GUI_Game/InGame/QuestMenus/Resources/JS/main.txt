@@ -1,0 +1,68 @@
+var mouseD = false;
+
+ChangeOpacityQuestQuestion = function(event, button, value) {
+    if (event.button !== 0 )return;
+
+    if (value !== "1.0") mouseD = button;
+    else mouseD = null;
+
+
+    var child = button.getElementsByClassName('QuestMark')[0];
+
+    child.style.opacity = value;
+
+    var extra;
+    if (value + 0.35 > 1.0)
+        extra = 0;
+    else
+        extra = 0.35;
+
+    button.style.opacity = (parseFloat(value) + extra) + "";
+};
+
+
+returnOpacity = function() {
+    if (mouseD == null) return;
+
+    var marks = document.getElementsByClassName('QuestMark');
+    for (var i = 0; i < marks.length; i++) {
+        var mark = marks[i];
+        mark.style.opacity = "1.0";
+    }
+}
+
+ChangeOpacityQuestion = function(event, value) {
+    if (event.button !== 0)return;
+    var questionIMG = document.getElementById("question");
+    questionIMG.style.opacity = value;
+}
+
+
+
+
+var disabled = false;
+OnQuestButtonClick = function(event) {
+    if (event.button !== 0)return;
+
+    var questsList = document.getElementById("QuestsList");
+    if (!disabled)
+        questsList.style.display = "none";
+    else
+        questsList.style.display = "block";
+
+    disabled = !disabled;
+}
+
+
+
+
+function prestart() {
+    var space = importNamespace('UnityEngine');
+    var res = space.Screen.currentResolution;
+
+    var mainElement = document.getElementById("MainBox");
+    mainElement.style.width = res.width + "px";
+    mainElement.style.height = res.height + "px";
+}
+
+prestart();

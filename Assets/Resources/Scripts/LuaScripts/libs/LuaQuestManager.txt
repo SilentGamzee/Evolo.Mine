@@ -1,0 +1,42 @@
+if (LuaQuestManager == nil) then
+    LuaQuestManager = {}
+    LuaQuestManager.quests = {}
+end
+
+local function PreInitQuests(t)
+    return t["Quests"]
+end
+
+function LuaQuestManager:Init()
+    if (KVlibs["Quests"] == nil ) then
+        error("Lua: LuaQuestManager is broken")
+    end
+
+    local t = PreInitQuests(KVlibs["Quests"])
+    
+    for k, v in pairs(t) do
+        LuaQuestManager.quests[k] = v
+        LuaQuestManager.quests[k].name = k
+    end
+end
+
+
+function LuaQuestManager.GetQuestById(id)
+    for k,v in pairs(LuaQuestManager.quests) do
+        if (v.id~=nil and tostring(v.id)==tostring(id)) then
+            return v
+        end
+    end
+    return {}
+end
+
+function LuaQuestManager.GetQuestCount()
+    local n = 0
+    for k,v in pairs(LuaQuestManager.quests)do
+        n=n+1
+    end
+    return n
+end
+
+
+return LuaQuestManager

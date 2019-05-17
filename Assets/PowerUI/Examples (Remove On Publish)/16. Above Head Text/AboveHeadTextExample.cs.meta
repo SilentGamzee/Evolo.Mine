@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: c1c7e7495f5f08e42b56e112897d028d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - WhiteCubesMessageNode: {instanceID: 0}
+  - BlackCubesMessageNode: {fileID: 1802149266153064, guid: 57d00f8360baefe45832db3c9090e3e5,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

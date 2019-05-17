@@ -1,0 +1,62 @@
+if (LuaAbilityEvents == nil) then
+    LuaAbilityEvents = {}
+end
+
+function DoEvent(e, f, value)
+    e.table = value;
+    f(e)
+end
+
+function LuaAbilityEvents.ParseEvents(event)
+    local t = event.preset
+    if (event.preloaded == nil or event.preloaded[event.name] == nil) then
+        local newPreset = {}
+        for k, v in pairs(t) do
+            local f = LuaAbilityFunc[k]
+            if (type(f) == "function") then
+                newPreset[f] = v
+            end
+        end
+        event.preset = newPreset
+        t = newPreset
+        if(event.preloaded==nil) then
+            event.preloaded = {}
+        end
+        event.preloaded[event.name] = true;
+    end
+    
+    for k, v in pairs(t) do
+        DoEvent(event, k, v)
+    end
+
+end
+
+function LuaAbilityEvents.OnOwnerSpawned(event)
+    LuaAbilityEvents.ParseEvents(event)
+end
+
+function LuaAbilityEvents.OnSpellStart(event)
+    local caster = event.caster
+    local ability = event.ability
+
+    local goldCost = LuaAbilityManager.GetGoldCost(ability);
+    local foodCost = LuaAbilityManager.GetFoodCost(ability);
+
+    local goldCount = caster.Owner.goldCount
+    if (goldCount - goldCost < 0) then
+        ErrorBar.SetupError("Not enough crystals!");
+        return true;
+    end
+    if (caster.Owner.foodCount + foodCost > caster.Owner.foodMax) then
+        ErrorBar.SetupError("Not enough food!");
+        return true;
+    end
+
+    caster.Owner.goldCount = goldCount - goldCost
+
+    LuaAbilityEvents.ParseEvents(event)
+
+    return true;
+end
+
+

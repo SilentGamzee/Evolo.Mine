@@ -1,0 +1,7 @@
+"KVloader" 
+{ 
+		"LanguagesKV"       "KVs/LanguagesKV"
+		"NpcLoader"         "KVs/NpcLoader"
+		"Quests"			"KVs/Quests"
+        "ModifiersKV"       "KVs/ModifiersKV"
+}

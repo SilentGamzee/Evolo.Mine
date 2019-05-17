@@ -1,0 +1,14 @@
+"npc_items" 
+{
+    "item_log_1"
+    {
+        "model"         "Items/Usual/Log_1"
+        "group"         "item"
+        
+        "ItemStucks" 
+        {
+            
+           
+        }
+    }
+}

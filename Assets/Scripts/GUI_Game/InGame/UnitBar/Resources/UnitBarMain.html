@@ -1,0 +1,165 @@
+<style type='text/css' xmlns:font-family="http://www.w3.org/1999/xhtml">
+    body {
+        font-family: "itc_friz_quadrata";
+        font-size: 38pt;
+    }
+
+    #Modifiers {
+        display: inline-block;
+        width: 18%;
+        height: 60%;
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    #Title {
+        position: relative;
+        text-align: center;
+        right: 5%;
+    }
+
+    #UnitBox {
+        display: inline-block;
+        width: 80%;
+        height: 100%;
+        position: relative;
+        left: 10%;
+
+    }
+
+    #UnitBoxBG {
+        position: relative;
+
+        width: 80%;
+        height: 50px;
+        left: 5%;
+        background: black;
+        border: 1px solid black;
+    }
+
+    #Hp_Mp_BG {
+        width: 95%;
+        height: 50px;
+        background: black;
+        position: relative;
+        left: 2.5%;
+    }
+
+    #Hp_bar {
+        width: 100%;
+        height: 25px;
+        background: linear-gradient(to bottom, #5cbc5f 0%, #5daa6a 31%, #65ba5e 67%, #73c46a 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        position: relative;
+        top: 6px;
+        border: 3px solid black;
+    }
+
+    #Mp_bar {
+        width: 100%;
+        height: 13px;
+        background: linear-gradient(to bottom, #0529aa 1%,#31548c 64%,#6171b5 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        border: 3px solid black;
+
+    }
+
+    #StatBar {
+
+        width: 90%;
+        height: 100px;
+        position: relative;
+        top: 10%;
+        left: 5%;
+
+        background: black;
+    }
+
+    .hp {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background-size: 100% 100%;
+        background: url("resources://Image/Hearts/Full_red.png");
+    }
+
+    #UnitBar {
+        width: 100%;
+        height: 30%;
+        position: fixed;
+        bottom: 0%;
+    }
+
+    #progressBarBox {
+        width: 50%;
+        height: 22px;
+        position: fixed;
+        bottom: 10%;
+        left: 25%;
+    }
+
+    #progressBar {
+        display: inline-block;
+        width: 100%;
+        height: 100%;
+
+        border: 5px solid black;
+        background: gray;
+        text-align: left;
+
+    }
+
+    #progressBar_progress {
+        text-align: left;
+        background: #fdffee;
+        height: 100%;
+        width: 0%;
+    }
+
+
+</style>
+
+<div id="MainUnitBox">
+    <div id="UnitBar">
+        <!--
+        <div id="Modifiers">
+            <div class="hp"></div>
+            <div class="hp"></div>
+        </div>
+        -->
+        <div id="UnitBox">
+            <div id="Title">
+                UnitName
+            </div>
+
+            <div id="UnitBoxBG">
+                <div id="Hp_Mp_BG">
+                    <div id="Hp_bar"></div>
+                    <div id="Mp_bar"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--
+    <div id="progressBarBox">
+        <div id="progressBar">
+            <div id="progressBar_progress"></div>
+        </div>
+    </div>
+    -->
+</div>
+
+<script src="resources://JS/unitbarJS.txt">
+    function presetUnitBox() {
+        var UnitBar = importNamespace("GUI_Game.InGame.UnitBar");
+        var height = UnitBar.UnitBar_HTML.BarHeight;
+        var width = UnitBar.UnitBar_HTML.BarWeight;
+
+
+        var MainUnitBox = document.getElementById("MainUnitBox");
+        MainUnitBox.style.height = height + "px";
+        MainUnitBox.style.width = width + "px";
+
+        //  var progressBarBox = document.getElementById("progressBarBox");
+        // progressBarBox.style.display = "none";
+    }
+
+    presetUnitBox();
+</script>

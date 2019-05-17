@@ -1,0 +1,198 @@
+<title>QUESTS</title>
+
+
+<style type='text/css'>
+
+    /*
+        Widgets are totally isolated from everything else - they're actually iframes.
+    */
+
+    html {
+        color: white;
+    / / background: #0194E1;
+    / / color: black;
+    }
+
+    body {
+    / / margin: 30 px;
+        font-family: "itc_friz_quadrata";
+    }
+
+    
+
+    #title {
+        text-align: left;
+        font-size: 22pt;
+        font-weight: bold;
+    }
+
+    .descr {
+        text-align: left;
+        font-size: 12pt;
+        margin-top: 5px;
+    }
+
+    #items{
+        width: 100%;
+        height:70px;
+        
+    }
+    
+    .imgBG {
+       //position:relative;
+        background-size: 100% 100%;
+        background: url('resources://Image/Anothers/beautycase.png');
+        width: 70px;
+        height: 70px;
+        display: inline-block;
+    }
+
+    .imgDescr {
+
+        display: inline-block;
+        position:relative;
+        border: 1px solid #666566;
+        color-overlay: rgb(255,255,255);
+        background:linear-gradient(to bottom, rgb(11, 11, 25) 0%, rgb(23, 4, 4) 100%);
+        opacity:0.5;
+        
+        width:170px;
+        height: 70px;
+        
+        left:4px;
+        
+    }
+    
+    .imgDescrText{
+        position:fixed;
+        padding: 5px 5px 5px 5px; //top_right_bottom_left
+
+        word-wrap: break-word;
+        opacity:1;
+        height:13% ;
+        
+        
+        font-size:11pt;
+       
+        vertical-align: table-middle;
+        text-align:center;
+        color: #a3b5ff;
+    }
+    
+
+   
+
+    .subTitle {
+        margin-top: 10px;
+        margin-bottom: 5px;
+
+        text-align: left;
+        font-size: 14pt;
+        font-weight: bold;
+    }
+    
+    .subImg{
+        position:relative;
+        width: 64px;
+        height: 64px;
+        
+        top:3px;
+        left:3px;
+    }
+
+</style>
+<div id="QuestInfo">
+    <div id="title">
+        Quest title
+    </div>
+    <div id="quest-descr" class="descr">
+        Targets info
+    </div>
+    <div class="subTitle">Description</div>
+    
+    <div id="main-descr" class="descr">
+        Is template description text<br>
+        Is template description text<br>
+        Russian: русский<br>
+        
+        Is template description text<br>
+        Is template description text<br>
+        Is template description text<br>
+        
+    </div>
+
+    <div class="subTitle">
+        Rewards
+    </div>
+    <div id="reward-descr" class="descr">
+        You will recieve:
+    </div>
+    <br>
+    <div id="items">
+        <div id ="itemBG" class="imgBG">
+        </div>
+        <div id = "itemDescr" class="imgDescr">
+            <div class="imgDescrText">
+                <b> Slime essence impossible unreal</b>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    
+    
+</div>
+
+<script type='text/javascript'>
+
+
+    
+    function presetTitle(string){
+        var elem = document.getElementById("title");
+        elem.innerHTML = string;
+    }
+    
+    function presetObjectivies(string){
+        var elem = document.getElementById("quest-descr");
+        elem.innerHTML = string;
+    }
+    
+    function presetQuestDescr(string){
+        var elem = document.getElementById("main-descr");
+        elem.innerHTML = string;
+    }
+    
+    function presetItemImage(){
+        var elem = document.getElementById("itemBG");
+
+        var myDiv = document.createElement("div");
+        myDiv.className = "subImg";
+        myDiv.style.background = "url(resources://Image/Anothers/6BF_Retched_Blackrock.png)";
+
+        elem.appendChild(myDiv);
+    }
+    
+    // Show it:
+    // console.log("The widget URL set the hello global to:");
+    // console.log(hello);
+    // document.getElementById("helloText").textContent = "hello = " + hello.toString();
+    function onStart(){
+      
+        
+        
+        var qTitle = quest.questTitle;
+        var qObjectivies = quest.questObjectivies;
+        var qDescr = quest.questDescription;
+
+       
+        
+        presetTitle(qTitle);
+        presetObjectivies(qObjectivies);
+        presetQuestDescr(qDescr);
+              
+        presetItemImage()
+    }
+    
+    onStart();
+</script>

@@ -1,0 +1,43 @@
+<div class='window-content' draggable="true">
+
+    <div class='window-title-bar'>
+
+
+        <div class="title" -spark-title>   <!-- Title of the iframe will be placed in here -->
+            Default title
+        </div>
+        <div class='window-close-button' onmouseup='Widgets.Widget.CloseThis'>
+            <div class="small-button-hover">
+
+                <img src='resources://Image/Buttons/close.png' style='position:relative; top:3px;'>
+
+            </div>
+        </div>
+
+    </div>
+    <iframe class='window-iframe' frameborder="0" resize-target="parent"></iframe>
+
+    <div id="sub_buttons">
+        <div class="line-breaker"></div>
+        <div class="line-breaker" style="width:99.5%;"></div>
+        <div id="take"  onmouseup="CompleteOpenedQuest">
+            <div class="big_butt_hover">
+                <div class="butt_text">
+                    Complete quest
+                </div>
+            </div>
+        </div>
+
+        <div id="close" onmouseup='Widgets.Widget.CloseThis'>
+            <div class="big_butt_hover">
+                <div class="butt_text">
+                    Cancel
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

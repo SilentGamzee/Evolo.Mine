@@ -1,0 +1,23 @@
+"ModifiersKV"
+{
+    "DMG_up_1"
+    {
+        "Stats"
+        {
+            "hp"            "0"
+            "attack_dmg"    "1"
+            "movespeed"     "0"
+        }
+    }
+
+    "HP_up_1"
+    {
+        "Stats"
+        {
+            "hp"            "1"
+            "attack_dmg"    "0"
+            "movespeed"     "0"
+        }
+    }
+    
+}
